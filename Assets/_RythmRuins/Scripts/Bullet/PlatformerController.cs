@@ -20,10 +20,8 @@ public class PlatformerController : PlatformerPhysics {
             player.GetAxis("LookHorizontal"),
             player.GetAxis("LookVertical"),
             0);
-        Shoot(look, transform.position);
+        Shoot(look, transform);
         Debug.DrawRay(transform.position, look);
-        if(look.magnitude>1)
-        Debug.Log(look.magnitude);
         base.Update();
     }
 }
