@@ -1,8 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ActorPhysics : MonoBehaviour
-{
+public class ActorPhysics : MonoBehaviour {
+    public delegate void CallStartRun();
+    public event CallStartRun onStartRun;
+
+    public delegate void CallStopRun();
+    public event CallStopRun onStopRun;
+
+    public delegate void CallStartJump();
+    public event CallStartJump onStartJump;
+
+    public delegate void CallStopJump();
+    public event CallStopJump onStopJump;
+
+    public delegate void CallSwapDirection(bool flipLeft);
+    public event CallSwapDirection onSwapDirection;
+
     public Vector2 velocity;
     public ActorInfo info;
     BoxCollider boxCollider;
@@ -11,6 +25,7 @@ public class ActorPhysics : MonoBehaviour
         get { return boxCollider.bounds; }
     }
     float buffer = 0.01f;
+    public float lastDir;
     float jumpBuffer = 0.1f;
     float lastJump;
     public bool isFacingRight = true;
@@ -22,7 +37,7 @@ public class ActorPhysics : MonoBehaviour
             return -1;
         }
     }
-    private bool isGrounded = false;
+    public bool isGrounded = false;
     public enum MotionState { Grounded, Falling, Jumping }
     private MotionState _motionState = MotionState.Falling;
     public MotionState motionState
@@ -46,7 +61,17 @@ public class ActorPhysics : MonoBehaviour
 
     public void Move(float dir) 
     {
-        if (dir == 0) return;
+        if (dir == 0) {
+            if (lastDir != 0) {
+                onStopRun();
+            }
+            lastDir = dir;
+            return;
+        }
+        else if (lastDir == 0) {
+            onStartRun();
+        }
+
         if (isGrounded)
         {
             velocity.x += dir * info.runSpeed;
@@ -55,7 +80,11 @@ public class ActorPhysics : MonoBehaviour
         {
             velocity.x += dir * info.airSpeed;
         }
-        isFacingRight = dir > 0;
+        if ((dir > 0 && !isFacingRight) || (dir < 0 && isFacingRight)) {
+            isFacingRight = dir > 0;
+            if (onSwapDirection != null) onSwapDirection(!isFacingRight);
+        }
+        lastDir = dir;
     }
     public void MoveY(float dir)
     {
@@ -65,6 +94,9 @@ public class ActorPhysics : MonoBehaviour
     public void Jump(float strength)
     {
         lastJump = Time.time;
+        if (onStartJump != null) {
+            onStartJump();
+        }
         if (isGrounded)
         {
             velocity.y += strength;
@@ -167,6 +199,9 @@ public class ActorPhysics : MonoBehaviour
             if (floorDist < -velocity.y * Time.deltaTime)
             {
                 isGrounded = true;
+                if (onStopJump != null) {
+                    onStopJump();
+                }
                 velocity.y = 0;
                 newPos.y = hit.point.y + bound.size.y * 0.5f + buffer;
                 if (Time.time < lastJump + jumpBuffer) {

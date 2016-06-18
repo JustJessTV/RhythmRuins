@@ -38,7 +38,7 @@ public class AnimNode{
         if (timeTIllNextFrame < Time.time) {
             timeTIllNextFrame += spf;
             index++;
-            if (index >= frames.Length&&type==AnimNodeType.Single) {
+            if (index > frames.Length&&type==AnimNodeType.Single) {
                 TryComplete();
                 return;
             }
@@ -55,8 +55,13 @@ public class AnimNode{
             Finalize();
         }
     }
+    public void Transition(System.Action OnComplete) {
+        this.OnComplete = OnComplete;
+        TryComplete();
+    }
     public void Play() {
         if (state != AnimNodeState.Idle) return;
+        sr.sprite = frames[0];
         if (PreAnimation != null) {
             PreAnimation.Play();
             state = AnimNodeState.WaitingPre;

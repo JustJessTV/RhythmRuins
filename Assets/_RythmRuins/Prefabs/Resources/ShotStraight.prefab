@@ -39,10 +39,10 @@ BoxCollider:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 118906}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.3, y: 0.1, z: 1}
+  m_Size: {x: 0.3, y: 0.1, z: 2}
   m_Center: {x: 0, y: 0, z: -0.22}
 --- !u!96 &9633092
 TrailRenderer:
@@ -102,6 +102,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13357ff7bd570184c86c8aacb44ba5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 100
+  deathTime: 0.3
 --- !u!114 &11456450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -113,9 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8484f42906074f6428989f5bf727a94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 3072
+  layerMask: {}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
