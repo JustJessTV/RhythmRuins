@@ -44,8 +44,9 @@ public class ActorPhysics : MonoBehaviour
         //Debug.DrawRay(transform.position,velocity*1);
     }
 
-    public void Move(float dir)
+    public void Move(float dir) 
     {
+        if (dir == 0) return;
         if (isGrounded)
         {
             velocity.x += dir * info.runSpeed;
