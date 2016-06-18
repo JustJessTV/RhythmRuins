@@ -3,6 +3,7 @@ using System.Collections;
 
 public class PlatformerPhysics:ActorPhysics{
     bool lastFrameShot = false;
+    float hp = 1;
     public void Awake() {
         base.info = new ActorInfo() {
             runSpeed = 2f,
@@ -23,7 +24,7 @@ public class PlatformerPhysics:ActorPhysics{
         if (lastFrameShot) return;
         lastFrameShot = true;
         dir.Normalize();
-        Object obj = Resources.Load("ShotStraight");
+        Object obj = Resources.Load("ShotSweep");
 
         GameObject go = Instantiate( obj as GameObject,
             transform.position, Quaternion.LookRotation(dir,Vector3.forward))as GameObject;
@@ -31,5 +32,18 @@ public class PlatformerPhysics:ActorPhysics{
     }
     void OnTriggerEnter(Collider other) {
         Debug.Log("Hit " + other.transform.name);
+        hp -= 0.2f;
+        BaddieMissle bm = other.GetComponent<BaddieMissle>();
+        if (bm != null) {
+            bm.Kill();
+        }
+    }
+    void OnGUI() {
+        if (hp <= 0.1) {
+            GUI.Button(new Rect(10, 10, 200, 20), "Dead");
+            return;
+        }
+        GUI.Button(new Rect(10, 10, hp * 200, 20), "");
+        GUI.Button(new Rect(10, 10, 200, 20), "");
     }
 }

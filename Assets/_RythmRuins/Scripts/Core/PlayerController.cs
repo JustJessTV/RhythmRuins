@@ -18,6 +18,5 @@ public class PlayerController : MonoBehaviour{
             Buddy = Root.playerManger.p1;
             Buddy.Buddy = this;
         }
-
     }
 }
