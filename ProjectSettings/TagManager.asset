@@ -13,11 +13,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - GoodUnits
+  - GoodDamage
+  - BadUnits
+  - BadDamage
+  - NeutralDamage
   - 
   - 
   - 
