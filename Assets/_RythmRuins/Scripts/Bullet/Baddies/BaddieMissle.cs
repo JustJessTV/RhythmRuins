@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BaddieMissle : MonoBehaviour {
+public class BaddieMissle : Damagie{
     public float speed=3;
     public float turnSpeed=80;
     Rigidbody rb;
@@ -25,7 +25,8 @@ public class BaddieMissle : MonoBehaviour {
         transform.Rotate(0, 0, -rDotT * turnSpeed * Time.deltaTime);
         
     }
-    public void Kill() {
-        Destroy(gameObject);
+    public override void Kill(){
+        Debug.Log("Hit this also");
+        base.Kill();
     }
 }

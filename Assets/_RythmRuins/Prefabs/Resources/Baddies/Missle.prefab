@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 414472}
   - 33: {fileID: 3312146}
   - 23: {fileID: 2344550}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ GameObject:
   - 54: {fileID: 5439432}
   - 96: {fileID: 9670704}
   - 135: {fileID: 13539880}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: Missle
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,6 +11,8 @@ public class ActorPhysics : MonoBehaviour
         get { return boxCollider.bounds; }
     }
     float buffer = 0.01f;
+    float jumpBuffer = 0.1f;
+    float lastJump;
     public bool isFacingRight = true;
     public float facingRight
     {
@@ -42,8 +44,9 @@ public class ActorPhysics : MonoBehaviour
         //Debug.DrawRay(transform.position,velocity*1);
     }
 
-    public void Move(float dir)
+    public void Move(float dir) 
     {
+        if (dir == 0) return;
         if (isGrounded)
         {
             velocity.x += dir * info.runSpeed;
@@ -61,6 +64,7 @@ public class ActorPhysics : MonoBehaviour
 
     public void Jump(float strength)
     {
+        lastJump = Time.time;
         if (isGrounded)
         {
             velocity.y += strength;
@@ -78,6 +82,7 @@ public class ActorPhysics : MonoBehaviour
     }
     public void JumpRelease()
     {
+        lastJump = 0;
         if (motionState == MotionState.Jumping)
         {
             velocity.y *= 0.5f;
@@ -164,6 +169,9 @@ public class ActorPhysics : MonoBehaviour
                 isGrounded = true;
                 velocity.y = 0;
                 newPos.y = hit.point.y + bound.size.y * 0.5f + buffer;
+                if (Time.time < lastJump + jumpBuffer) {
+                    Jump();
+                }
             }
         if (isGrounded && floorDist > buffer * 2)
         {
