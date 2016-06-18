@@ -3,8 +3,10 @@ using System.Collections;
 using Rewired;
 [RequireComponent(typeof(CharacterController))]
 public class PlatformerController : PlatformerPhysics {
+    public static PlatformerController main;
     Player player;
     void Awake() {
+        main = this;
         base.Awake();
         player = ReInput.players.GetPlayer(0);
     }
