@@ -24,18 +24,19 @@ public class PlatformerPhysics:ActorPhysics{
         if (lastFrameShot) return;
         lastFrameShot = true;
         dir.Normalize();
-        Object obj = Resources.Load("ShotSweep");
+        Object obj = Resources.Load("ShotStraight");
 
         GameObject go = Instantiate( obj as GameObject,
             transform.position, Quaternion.LookRotation(dir,Vector3.forward))as GameObject;
         go.transform.parent = transform;
     }
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Hit " + other.transform.name);
+        //Debug.Log("Hit " + other.transform.name);
         hp -= 0.2f;
+        //if(other.gameObject.layer==Layer)
         BaddieMissle bm = other.GetComponent<BaddieMissle>();
         if (bm != null) {
-            bm.Kill();
+            //bm.Kill();
         }
     }
     void OnGUI() {
