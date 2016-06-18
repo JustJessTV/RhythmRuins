@@ -18,7 +18,11 @@ public class AnalyzeSound : MonoBehaviour {
         audClp = audSrc.clip;
 	}
 
-    public static float[] GetSpectrum(AudioSource audSrc,int arraySize, out float max, out float avg, out float min) {
+    public static float[] GetSpectrum(AudioSource audSrc, int arraySize, out float max, out float min){
+        float avg = -1;
+        return GetSpectrum(audSrc, arraySize, out max, out min, out avg);
+    }
+    public static float[] GetSpectrum(AudioSource audSrc,int arraySize, out float max,out float min, out float avg) {
         float[] spectrum = new float[arraySize];
         audSrc.GetSpectrumData(spectrum, 0, FFTWindow.BlackmanHarris);
         max = float.MinValue;
@@ -26,17 +30,21 @@ public class AnalyzeSound : MonoBehaviour {
         avg = 0.0f;
         float sum = 0.0f;
         int size = spectrum.Length;
-        for (int j = 0; j < size; j++)
+        if (avg != -1)
         {
-            if (spectrum[j] > max) max = spectrum[j];
-            if (spectrum[j] < min &&
-                spectrum[j] > 0)
+            for (int j = 0; j < size; j++)
             {
-                min = spectrum[j];
+                if (spectrum[j] > max) max = spectrum[j];
+                if (spectrum[j] < min &&
+                    spectrum[j] > 0)
+                {
+                    min = spectrum[j];
+                }
+                sum += spectrum[j];
             }
-            sum += spectrum[j];
+            avg = sum / size;
         }
-        avg = sum / size;
+        else { avg = -1; }
         return spectrum;
     }
 	

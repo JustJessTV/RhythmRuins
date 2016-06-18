@@ -15,7 +15,7 @@ public class test : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        float[] spec = AnalyzeSound.GetSpectrum(audSrc, 64, out max, out min, out avg);
+        float[] spec = AnalyzeSound.GetSpectrum(audSrc, 64, out max, out min);
         for (int i = 0; i < spec.Length-1; i++) {
             Debug.DrawLine(new Vector3(i, Mathf.Log(spec[i]) + 10, 0), new Vector3(i+1, Mathf.Log(spec[i + 1]) + 10, 0), Color.red);
         }
