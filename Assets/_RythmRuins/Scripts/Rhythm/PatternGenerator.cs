@@ -83,6 +83,9 @@ namespace RhythmRealm
                 }
                 if (!beatManager.startTimer) {
                     if (GUILayout.Button("Playback debug")) {
+                        beatManager.ClearRecordedKeys();
+                        Debug.Log(beatManager.inputAndValue.Count);
+                        beatManager.LoadRecordedKeys();
                         audSrc.Stop();
                         audSrc.Play();
                         debugPlayBackTime = Time.time;
@@ -118,9 +121,17 @@ namespace RhythmRealm
                         audSrc.clip = audClip;
                     }
                 }
-                else { 
-                GUILayout.Box("audio : " + audClip.name);
+                else {
+                    GUILayout.BeginHorizontal();
+                    GUILayout.Box("audio : " + audClip.name);
+                    
+                    // allow toggle for loop?
+
+                    GUILayout.EndHorizontal();
+                    if (GUILayout.Button("refresh")) {
+                        audSrc.clip = audClip;
                     }
+                }
                 GUILayout.BeginHorizontal();
                 GUILayout.Box("BPM");
                 bpm = BeatManager.BPM;
