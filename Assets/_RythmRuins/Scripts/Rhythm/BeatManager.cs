@@ -129,7 +129,8 @@ public class BeatManager : MonoBehaviour {
         inputAndValue.Add(iv);
     }
     public void AnalyzeRecordedKeys() {
-        SimpleJSON.JSONClass json = new JSONClass();
+        
+        JSONNode jnode = new JSONArray();
         for (int i = 0; i < recordedKeys.Count; i++) {
             decimal t = (decimal)recordedKeys[i];
             decimal r = (decimal)t % quaterNote;
@@ -141,17 +142,29 @@ public class BeatManager : MonoBehaviour {
                 recordedKeys[i] = (float)(t - r);
             }
             inputAndValue[i].time       = recordedKeys[i];
-            json[i]["value"].AsFloat    = inputAndValue[i].time;
-            json[i]["button"].AsInt     = inputAndValue[i].index;
 
+            JSONClass json = new JSONClass();
+            json["value"].AsFloat    = inputAndValue[i].time;
+            json["button"].AsInt     = inputAndValue[i].index;
+            jnode.Add(json);
             Debug.Log(inputAndValue[i].index + " : " + inputAndValue[i].time);
         }
-        string jsonString = json.ToString();
-        //NOTE:
-
-        // should convert to jSon here
+        PatternPath.SaveNewFile(jnode, "nickTest");
     }
-
+    public void ClearRecordedKeys() {
+        inputAndValue.Clear();
+    }
+    public void LoadRecordedKeys() {
+        string preJson = PatternPath.LoadPatternFile("nickTest");
+        JSONNode jc = JSONClass.Parse(preJson) as JSONNode;
+        for (int i = 0; i < jc.Count; i++) {
+            int index           = jc[i]["button"].AsInt;
+            float time          = jc[i]["value"].AsFloat;
+            Debug.Log("i :" + index + " t :" + time);
+            InputAndValue iv    = new InputAndValue(index, time);
+            inputAndValue.Add(iv);
+        }
+    }
     public static float GetNoteHit(Notes type) {
         decimal t = (decimal)Time.time - sessionTimer;
         switch (type) {
