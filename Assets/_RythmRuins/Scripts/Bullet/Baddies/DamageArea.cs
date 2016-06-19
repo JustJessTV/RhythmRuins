@@ -13,6 +13,7 @@ public class DamageArea : MonoBehaviour {
             return Mathf.InverseLerp(startTime, endTime, Time.time);
         }
     }
+    public System.Action onComplete;
     Material mat;
     void Awake() {
         Destroy(GetComponent<BoxCollider>());
@@ -29,6 +30,7 @@ public class DamageArea : MonoBehaviour {
         }
         if (!going) return;
         if (dead) {
+            if(onComplete!=null)onComplete();
             Destroy(gameObject);
         }
         mat.SetFloat("_Thickness", t);
