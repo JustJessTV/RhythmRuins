@@ -2,7 +2,8 @@
 using System.Collections;
 
 public class DamageArea : MonoBehaviour {
-
+    public enum HitType { Square,Circle}
+    public HitType hitType = HitType.Square;
     float startTime;
     float endTime;
     bool dead = false;
@@ -16,7 +17,7 @@ public class DamageArea : MonoBehaviour {
     public System.Action onComplete;
     Material mat;
     void Awake() {
-        Destroy(GetComponent<BoxCollider>());
+        Destroy(GetComponent<Collider>());
     }
 	void Start () {
         mat = GetComponent<MeshRenderer>().material;
@@ -36,8 +37,17 @@ public class DamageArea : MonoBehaviour {
         mat.SetFloat("_Thickness", t);
         if (t >= 1) {
             dead = true;
-            BoxCollider bc = gameObject.AddComponent<BoxCollider>();
-            bc.isTrigger = true;
+            Collider col;
+            switch (hitType) {
+                case HitType.Square:
+                    col = gameObject.AddComponent<BoxCollider>();
+                    col.isTrigger = true;
+                    break;
+                case HitType.Circle:
+                    col = gameObject.AddComponent<CapsuleCollider>();
+                    col.isTrigger = true;
+                    break;
+            }
         }
 	}
     public void Arm(float duration) {

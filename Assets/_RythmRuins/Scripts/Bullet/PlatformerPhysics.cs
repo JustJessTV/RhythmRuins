@@ -14,8 +14,8 @@ public class PlatformerPhysics:ActorPhysics{
     public void Awake() {
         base.info = new ActorInfo() {
             runSpeed = 2f,
-            gravity = 1,
-            jumpPower = 32,
+            gravity = 0.8f,
+            jumpPower = 35,
             friction = 15,
             airFriction = 2,
             airSpeed = 0.4f
@@ -39,7 +39,9 @@ public class PlatformerPhysics:ActorPhysics{
         go.transform.parent = transform;
     }
     void OnTriggerEnter(Collider other) {
-        if ((other.gameObject.layer & (LayerMask.NameToLayer("BadUnits") | LayerMask.NameToLayer("BadDamage"))) == 0) return;
+        int mask = (1<<LayerMask.NameToLayer("BadUnits")) | (1<<LayerMask.NameToLayer("BadDamage"));
+        int result = (1 << other.gameObject.layer) & (mask);
+        if (result == 0) return;
         Debug.Log("Hit " + other.transform.name);
         BaddieMissle bm = other.GetComponent<BaddieMissle>();
         if (bm != null) {

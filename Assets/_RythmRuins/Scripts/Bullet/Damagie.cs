@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Damagie : MonoBehaviour{
-    public float hp;
+    public float hp=1;
     public virtual void Hit(float amount) {
         hp -= amount;
         if (hp <= 0) Kill();

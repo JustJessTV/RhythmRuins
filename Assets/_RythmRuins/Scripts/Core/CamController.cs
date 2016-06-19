@@ -56,13 +56,15 @@ public class CamController : MonoBehaviour {
             Random.Range(5, 40),
             Random.Range(1, 5)
             );
-        /*
+        
         if (Random.value > 0.9) {
+            Instantiate(Resources.Load("Baddies/Turret"), GetPointAtDistRight(10)+Vector3.right*2, Quaternion.identity);
+            /*
             Vector3 position = transform.position;
             position.x += Random.Range(-7, 7);
             position.y = 0;
             position.z = 0;
-            Instantiate(Resources.Load("TankDamage"), position, Quaternion.identity);
-        }*/
+            Instantiate(Resources.Load("TankDamage"), position, Quaternion.identity);*/
+        }
     }
 }
