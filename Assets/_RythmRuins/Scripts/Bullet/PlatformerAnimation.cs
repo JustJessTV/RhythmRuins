@@ -19,6 +19,7 @@ public class PlatformerAnimation : MonoBehaviour {
 	void Awake () {
         pc = GetComponent<PlatformerController>();
         sr = GetComponent<SpriteRenderer>();
+        pc.pm = this;
 
         pc.onSwapDirection  += SwapDirection;
         pc.onStartRun       += StartRun;
@@ -28,13 +29,43 @@ public class PlatformerAnimation : MonoBehaviour {
         pc.onStartAttack    += StartAttack;
         pc.onStartHurt      += StartHurt;
 
-        BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
+        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
 
-        anIdle.Play();
-
-
-        anCurrent = anIdle;
 	}
+    public void UpdateSpriteSet() {
+        switch (pc.character) {
+            case CharType.Etta:
+                BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
+            /*
+                switch (pc.weapon) {
+                    case WeaponType.Bare:
+                        BuildSpriteLib(Root.main.animSets.ETTA_BARE);
+                        break;
+                    case WeaponType.Poke:
+                        BuildSpriteLib(Root.main.animSets.ETTA_POKE);
+                        break;
+                    case WeaponType.Sweep:
+                        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
+                        break;
+                }*/
+                break;
+            case CharType.Triq:
+                BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
+            /*
+                switch (pc.weapon) {
+                    case WeaponType.Bare:
+                        BuildSpriteLib(Root.main.animSets.TRIQ_BARE);
+                        break;
+                    case WeaponType.Poke:
+                        BuildSpriteLib(Root.main.animSets.TRIQ_POKE);
+                        break;
+                    case WeaponType.Sweep:
+                        BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
+                        break;
+                }*/
+                break;
+        }
+    }
     public void BuildSpriteLib(AnimSets.AnimSet animSet) {
 
         sprites                 = Resources.LoadAll<Sprite>(animSet.fileName);
@@ -49,6 +80,10 @@ public class PlatformerAnimation : MonoBehaviour {
 
         anJump.PreAnimation     = new AnimNode(ref sr, sprites, animSet.jumpPre,    10, AnimNodeType.Single);
         anJump.PostAnimation    = new AnimNode(ref sr, sprites, animSet.jumpPost,   10, AnimNodeType.Single);
+
+        anIdle.Play();
+
+        anCurrent = anIdle;
     }
 	// Update is called once per frame
 	void Update () {
