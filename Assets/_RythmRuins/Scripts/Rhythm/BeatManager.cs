@@ -29,7 +29,8 @@ public class BeatManager : MonoBehaviour {
     public enum Notes {
         full,
         half,
-        quater
+        quarter,
+        grace
     }
     public Notes note;
 
@@ -67,6 +68,7 @@ public class BeatManager : MonoBehaviour {
         hitFullNote += FullNoteDebug;
         debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         if (BPM == 0) BPM = 140;
+        CalculateBeat(BPM, out fullNote, out quaterNote);
 	}
 	
 	// Update is called once per frame
@@ -78,6 +80,7 @@ public class BeatManager : MonoBehaviour {
         if (startTimer)
         {
             TimerCallBack();
+       //     Debug.Log(sessionTimer);
         }
         else {
             sessionTimer = (decimal)Time.time;
@@ -109,13 +112,12 @@ public class BeatManager : MonoBehaviour {
                 hitFullNote();
             }
             fullNoteThreshold += fullNote;
-        }
-    
+        }  
     }
 
     void FullNoteDebug() {
         decimal t = (decimal)Time.time - sessionTimer;
-  //      Debug.Log("Beep!" + t.ToString() + " d : " +Time.deltaTime);
+        Debug.Log("Beep!" + t.ToString() + " d : " +Time.deltaTime);
         Color c = new Color(Random.Range(0.2f,1.0f),
             Random.Range(0.2f,1.0f),
             Random.Range(0.2f,1.0f));
@@ -127,6 +129,42 @@ public class BeatManager : MonoBehaviour {
         recordedKeys.Add(keyTime);
         InputAndValue iv = new InputAndValue(index, keyTime);
         inputAndValue.Add(iv);
+    }
+    
+    public void NoteType(float timeValue, out Notes note){
+        
+        decimal r = (decimal)timeValue%fullNote;
+        float n = Mathf.InverseLerp(0,(float)fullNote,(float)r);
+        Debug.Log("normalized note :"+n);
+        float absN = Mathf.Abs(n);
+        if(absN<=.05f){
+            note = Notes.full;
+            return;
+        }
+        if (absN >= .2f &&
+            absN <= .3f) {
+                note = Notes.quarter;
+                return;
+        }
+        if (absN >= .45f &&
+            absN <= .55f) {
+                note = Notes.half;
+        }
+        if (absN >= .7f &&
+            absN <= .8f) {
+                note = Notes.quarter;
+                return;
+        }
+        if (absN >= .95f)
+        {
+            note = Notes.full;
+            return;
+        }
+        else {
+            note = Notes.grace;
+            return;
+        }
+    
     }
     public void AnalyzeRecordedKeys() {
         
@@ -172,7 +210,7 @@ public class BeatManager : MonoBehaviour {
                 return (float)(t % fullNote);
             case Notes.half:
                 return (float)(t % halfNote);
-            case Notes.quater:
+            case Notes.quarter:
                 return (float)(t % quaterNote);
             default:
                 return 1.0f;
