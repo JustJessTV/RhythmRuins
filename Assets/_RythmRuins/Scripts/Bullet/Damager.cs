@@ -8,7 +8,7 @@ public class Damager : MonoBehaviour {
         Debug.Log("Hit " + other.transform.name);
         Damagie damagie = other.gameObject.GetComponent<Damagie>();
         if (damagie != null) {
-            damagie.Kill();
+            damagie.Hit(1);
         }
     }
 }

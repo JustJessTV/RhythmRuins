@@ -10,6 +10,11 @@ public class PlatformerAnimation : MonoBehaviour {
     AnimNode anJump;
     AnimNode anCurrent;
     AnimNode anAttack;
+    AnimNode anHurt;
+    bool invuln {
+        get { return pc.invuln; }
+        set { pc.invuln = value; }
+    }
 	// Use this for initialization
 	void Awake () {
         pc = GetComponent<PlatformerController>();
@@ -21,18 +26,30 @@ public class PlatformerAnimation : MonoBehaviour {
         pc.onStartJump      += StartJump;
         pc.onStopJump       += StopJump;
         pc.onStartAttack    += StartAttack;
+        pc.onStartHurt      += StartHurt;
 
-        sprites = Resources.LoadAll<Sprite>("TestF");
-        anIdle =    new AnimNode(ref sr, sprites, 1, 1, 10, AnimNodeType.Loop);
-        anRun =     new AnimNode(ref sr, sprites, 7, 7, 10, AnimNodeType.Loop);
-        anJump =    new AnimNode(ref sr, sprites, 6, 6, 10, AnimNodeType.Loop);
-        anAttack =  new AnimNode(ref sr, sprites, 2, 2, 10, AnimNodeType.Single);
+        BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
+
         anIdle.Play();
 
 
         anCurrent = anIdle;
 	}
-	
+    public void BuildSpriteLib(AnimSets.AnimSet animSet) {
+
+        sprites                 = Resources.LoadAll<Sprite>(animSet.fileName);
+        anIdle                  = new AnimNode(ref sr, sprites, animSet.idle,       7, AnimNodeType.Loop);
+        anRun                   = new AnimNode(ref sr, sprites, animSet.run,        10, AnimNodeType.Loop);
+        anJump                  = new AnimNode(ref sr, sprites, animSet.jump,       10, AnimNodeType.Loop);
+        anAttack                = new AnimNode(ref sr, sprites, animSet.attack,     10, AnimNodeType.Single);
+        anHurt                  = new AnimNode(ref sr, sprites, animSet.hurt,       05, AnimNodeType.Single);
+
+        anRun.PreAnimation      = new AnimNode(ref sr, sprites, animSet.runPre,     20, AnimNodeType.Single);
+        anRun.PostAnimation     = new AnimNode(ref sr, sprites, animSet.runPost,    10, AnimNodeType.Single);
+
+        anJump.PreAnimation     = new AnimNode(ref sr, sprites, animSet.jumpPre,    10, AnimNodeType.Single);
+        anJump.PostAnimation    = new AnimNode(ref sr, sprites, animSet.jumpPost,   10, AnimNodeType.Single);
+    }
 	// Update is called once per frame
 	void Update () {
         anCurrent.Update();
@@ -41,30 +58,49 @@ public class PlatformerAnimation : MonoBehaviour {
         sr.flipX = flipX;
     }
     void StartRun() {
+        if (invuln) return;
         if (!pc.isGrounded) return;
         anRun.Play();
         anCurrent = anRun;
     }
     void StopRun() {
+        if (invuln) return;
         if (!pc.isGrounded) return;
         anCurrent.Transition(() => { anIdle.Play(); anCurrent = anIdle; });
     }
     void StartJump() {
+        if (invuln) return;
         anCurrent = anJump;
         anJump.Play();
     }
     void StopJump() {
+        if (invuln) return;
         if(pc.lastDir==0)
             anCurrent.Transition(() => { anIdle.Play(); anCurrent = anIdle; });
         else
             anCurrent.Transition(() => { anRun.Play(); anCurrent = anRun; });
     }
     void StartAttack() {
+        if (invuln) return;
         anCurrent = anAttack;
         anAttack.Play();
         anAttack.OnComplete = StopAttack;
     }
     void StopAttack() {
+        if (invuln) return;
+        if (pc.lastDir == 0)
+            anCurrent.Transition(() => { anIdle.Play(); anCurrent = anIdle; });
+        else
+            anCurrent.Transition(() => { anRun.Play(); anCurrent = anRun; });
+    }
+    void StartHurt() {
+        invuln = true;
+        anCurrent = anHurt;
+        anHurt.Play();
+        anHurt.OnComplete = StopHurt;
+    }
+    void StopHurt() {
+        invuln = false;
         if (pc.lastDir == 0)
             anCurrent.Transition(() => { anIdle.Play(); anCurrent = anIdle; });
         else
