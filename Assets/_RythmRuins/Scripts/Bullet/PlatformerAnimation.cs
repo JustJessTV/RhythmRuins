@@ -28,18 +28,28 @@ public class PlatformerAnimation : MonoBehaviour {
         pc.onStartAttack    += StartAttack;
         pc.onStartHurt      += StartHurt;
 
-        sprites = Resources.LoadAll<Sprite>("TestF");
-        anIdle =    new AnimNode(ref sr, sprites, 1, 1, 10, AnimNodeType.Loop);
-        anRun =     new AnimNode(ref sr, sprites, 7, 7, 10, AnimNodeType.Loop);
-        anJump =    new AnimNode(ref sr, sprites, 6, 6, 10, AnimNodeType.Loop);
-        anAttack =  new AnimNode(ref sr, sprites, 2, 2, 10, AnimNodeType.Single);
-        anHurt =    new AnimNode(ref sr, sprites, 3, 3, 05, AnimNodeType.Single);
+        BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
+
         anIdle.Play();
 
 
         anCurrent = anIdle;
 	}
-	
+    public void BuildSpriteLib(AnimSets.AnimSet animSet) {
+
+        sprites                 = Resources.LoadAll<Sprite>(animSet.fileName);
+        anIdle                  = new AnimNode(ref sr, sprites, animSet.idle,       7, AnimNodeType.Loop);
+        anRun                   = new AnimNode(ref sr, sprites, animSet.run,        10, AnimNodeType.Loop);
+        anJump                  = new AnimNode(ref sr, sprites, animSet.jump,       10, AnimNodeType.Loop);
+        anAttack                = new AnimNode(ref sr, sprites, animSet.attack,     10, AnimNodeType.Single);
+        anHurt                  = new AnimNode(ref sr, sprites, animSet.hurt,       05, AnimNodeType.Single);
+
+        anRun.PreAnimation      = new AnimNode(ref sr, sprites, animSet.runPre,     20, AnimNodeType.Single);
+        anRun.PostAnimation     = new AnimNode(ref sr, sprites, animSet.runPost,    10, AnimNodeType.Single);
+
+        anJump.PreAnimation     = new AnimNode(ref sr, sprites, animSet.jumpPre,    10, AnimNodeType.Single);
+        anJump.PostAnimation    = new AnimNode(ref sr, sprites, animSet.jumpPost,   10, AnimNodeType.Single);
+    }
 	// Update is called once per frame
 	void Update () {
         anCurrent.Update();

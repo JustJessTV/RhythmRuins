@@ -13,11 +13,17 @@ public class AnimNode{
     float spf;
     float timeTIllNextFrame;
     int index;
+    public AnimNode(ref SpriteRenderer sr, Sprite[] frames, AnimSets.Pair pair, float fps, AnimNodeType type) {
+        Construct(ref sr, frames, pair.start, pair.end, fps, type);
+    }
     public AnimNode(ref SpriteRenderer sr, Sprite[] frames, int start, int end, float fps, AnimNodeType type) {
+        Construct(ref sr, frames, start, end, fps, type);
+    }
+    void Construct(ref SpriteRenderer sr, Sprite[] frames, int start, int end, float fps, AnimNodeType type) {
         this.frames = SubSet(ref frames, start, end);
         this.fps = fps;
         spf = 1 / fps;
-        this.type=type;
+        this.type = type;
         this.sr = sr;
     }
     public void Update() {
@@ -38,7 +44,7 @@ public class AnimNode{
         if (timeTIllNextFrame < Time.time) {
             timeTIllNextFrame += spf;
             index++;
-            if (index > frames.Length&&type==AnimNodeType.Single) {
+            if (index > frames.Length-1&&type==AnimNodeType.Single) {
                 TryComplete();
                 return;
             }
@@ -60,7 +66,7 @@ public class AnimNode{
         TryComplete();
     }
     public void Play() {
-        if (state != AnimNodeState.Idle) return;
+        //if (state != AnimNodeState.Idle) return;
         sr.sprite = frames[0];
         if (PreAnimation != null) {
             PreAnimation.Play();
