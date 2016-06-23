@@ -131,6 +131,7 @@ public class MusicTrackHandler : MonoBehaviour {
 	void Start () {
         GameStateHandler.transitionToMain += TransitionToMain;
         GameStateHandler.transitionToPlay += TransitionToPlay;
+        GameStateHandler.gameOver += GameEnd;
         texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
         Shader.SetGlobalTexture("_SPECTRUM", texSpectrum);
         beatManager = FindObjectOfType<RhythmRealm.BeatManager>().GetComponent<RhythmRealm.BeatManager>();
@@ -151,6 +152,9 @@ public class MusicTrackHandler : MonoBehaviour {
     }
     public static void TransitionToPlay() {
         gameState = GameState.transition;
+    }
+    public static void GameEnd() {
+        gameState = GameState.gameEnd;
     }
     void StateManager() {
         if (cubeDrive != null) {
