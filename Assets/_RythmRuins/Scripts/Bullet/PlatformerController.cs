@@ -15,18 +15,21 @@ public class PlatformerController : PlatformerPhysics {
     public CharType character;
     public WeaponType weapon;
     bool running = false;
-    public void SetChararacter(CharType character) {
-        this.character = character;
-        pm.UpdateSpriteSet();
+    void Awake() {
+        main = this;
+        base.Awake();
+        player = ReInput.players.GetPlayer(0);
+        Root.playerManger.onSwitchPlayer += SwapCharacters;
+        Root.playerManger.onSwitchWeapon += SetWeapon;
     }
     public void SetWeapon(WeaponType weapon) {
         this.weapon = weapon;
         pm.UpdateSpriteSet();
     }
-    void Awake() {
-        main = this;
-        base.Awake();
-        player = ReInput.players.GetPlayer(0);
+    void SwapCharacters(CharType character) {
+        this.character = character;
+        pm.UpdateSpriteSet();
+        player = ReInput.players.GetPlayer((int)character);
     }
     void Update() {
         float camX = Camera.main.transform.position.x;
@@ -46,7 +49,6 @@ public class PlatformerController : PlatformerPhysics {
                 Root.playerManger.SetPlayer(CharType.Triq);
             }
             else {
-
                 Root.playerManger.SetPlayer(CharType.Etta);
             }
         }
@@ -64,26 +66,10 @@ public class PlatformerController : PlatformerPhysics {
             player.GetAxis("LookVertical"),
             0);
         Shoot(look, transform);
+        if (player.GetButtonDown("Swap")) {
+            swap = true;
+        }
         Debug.DrawRay(transform.position, look);
         base.Update();
-
-        if (player.GetButtonDown("Up")) {
-            Debug.Log("Up!");
-        }
-        if (player.GetButtonDown("Down")) {
-            Debug.Log("Down!");
-        }
-        if (player.GetButtonDown("Left")) {
-            Debug.Log("Left!");
-        }
-        if (player.GetButtonDown("Right")) {
-            Debug.Log("Right!");
-        }
-        if (player.GetButtonDown("WeaponA")) {
-            Debug.Log("Weapon A");
-        }
-        if (player.GetButtonDown("WeaponB")) {
-            Debug.Log("Weapon B");
-        }
     }
 }

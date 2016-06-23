@@ -21,15 +21,26 @@ public class BeatControllInterface : MonoBehaviour {
 
     public delegate void PressedDown();
     public static event PressedDown pressedDown;
-    Player player;
 
+    public delegate void PressedWeaponA();
+    public static event PressedWeaponA pressedWeaponA;
+
+    public delegate void PressedWeaponB();
+    public static event PressedWeaponB pressedWeaponB;
+
+    Player player;
+    void Awake() {
+        Root.playerManger.onSwitchPlayer += SwapPlayer;
+    }
     void Start() {
         player = ReInput.players.GetPlayer(0);
     }
 	void Update () {
         ButtonDetect();
 	}
-
+    void SwapPlayer(CharType character) {
+        player = ReInput.players.GetPlayer(1-(int)character);
+    }
     void ButtonDetect() {
         if (player.GetButton("Left")) {
             if (pressedLeft != null) pressedLeft();
@@ -45,6 +56,12 @@ public class BeatControllInterface : MonoBehaviour {
         if (player.GetButton("Down"))
         {
             if (pressedDown != null) pressedDown();
+        }
+        if (player.GetButton("WeaponA")) {
+            if (pressedWeaponA != null) pressedWeaponA();
+        }
+        if (player.GetButton("WeaponB")) {
+            if (pressedWeaponB != null) pressedWeaponB();
         }
     }
 }
