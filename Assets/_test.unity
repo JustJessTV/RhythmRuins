@@ -215,7 +215,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 449254, guid: 699ef26b414b81d44a89cd7c7f4637fd, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 699ef26b414b81d44a89cd7c7f4637fd, type: 2}
@@ -319,10 +319,52 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 487594, guid: fb9c88e2dfacbd84e9196c4ecb3f4b13, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb9c88e2dfacbd84e9196c4ecb3f4b13, type: 2}
+  m_IsPrefabParent: 0
+--- !u!1001 &568984196
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &1047937952
 GameObject:
@@ -524,196 +566,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5045a338a8b8994e80e412bc7e874c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1768775653
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultKeyboardMaps.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 449302, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].id
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].categoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMapIdCounter
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._actionId
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._keyboardKeyCode
-      value: 274
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[0]._actionCategoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[1]._actionId
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[1]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[1]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[1]._actionCategoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[1]._keyboardKeyCode
-      value: 275
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[2]._actionId
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[2]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[2]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[2]._keyboardKeyCode
-      value: 276
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[2]._actionCategoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[3]._actionId
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[3]._elementType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[3]._elementIdentifierId
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[3]._keyboardKeyCode
-      value: 273
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.keyboardMaps.Array.data[1].actionElementMaps.Array.data[3]._actionCategoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._id
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._name
-      value: Player1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._descriptiveName
-      value: Player1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._startPlaying
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.playerIdCounter
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.data[0]._enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultJoystickMaps.Array.data[0]._categoryId
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultKeyboardMaps.Array.data[0]._enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11492764, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-      propertyPath: _userData.players.Array.data[2]._defaultKeyboardMaps.Array.data[0]._categoryId
-      value: 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: e8c77e81ef7c19f41b95aef524dbb5e0, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &2095690868
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,8 +591,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2095690868}
   m_LocalRotation: {x: 0.70710665, y: 0, z: 0, w: 0.70710695}
-  m_LocalPosition: {x: 0, y: -4.2, z: 35.739998}
-  m_LocalScale: {x: 116.71595, y: 49.01881, z: 49.01881}
+  m_LocalPosition: {x: 0, y: -4.2, z: 44.81}
+  m_LocalScale: {x: 116.71595, y: 67.79294, z: 49.01881}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 10695728}
@@ -828,6 +680,10 @@ Prefab:
     - target: {fileID: 465038, guid: e8353144d0ed95845bf4cf588bafabcc, type: 2}
       propertyPath: m_RootOrder
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 11442596, guid: e8353144d0ed95845bf4cf588bafabcc, type: 2}
+      propertyPath: gameState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e8353144d0ed95845bf4cf588bafabcc, type: 2}

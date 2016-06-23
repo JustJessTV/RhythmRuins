@@ -66,5 +66,24 @@ public class PlatformerController : PlatformerPhysics {
         Shoot(look, transform);
         Debug.DrawRay(transform.position, look);
         base.Update();
+
+        if (player.GetButtonDown("Up")) {
+            Debug.Log("Up!");
+        }
+        if (player.GetButtonDown("Down")) {
+            Debug.Log("Down!");
+        }
+        if (player.GetButtonDown("Left")) {
+            Debug.Log("Left!");
+        }
+        if (player.GetButtonDown("Right")) {
+            Debug.Log("Right!");
+        }
+        if (player.GetButtonDown("WeaponA")) {
+            Debug.Log("Weapon A");
+        }
+        if (player.GetButtonDown("WeaponB")) {
+            Debug.Log("Weapon B");
+        }
     }
 }

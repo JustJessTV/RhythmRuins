@@ -8,6 +8,9 @@ public class PlatformerPhysics:ActorPhysics{
 
     public delegate void CallStartHurt();
     public event CallStartHurt onStartHurt;
+
+    public delegate void CallDeath();
+    public event CallDeath OnDeath;
     bool lastFrameShot = false;
     public bool invuln = false;
     float hp = 1;
@@ -52,13 +55,22 @@ public class PlatformerPhysics:ActorPhysics{
         hp -= 0.2f;
         velocity = new Vector2(facingRight*-10, 10);
     }
+    void CheckDeath() {
+        if(hp<=0){
+
+        }
+    }
     void OnGUI() {
+        int w = Screen.width;
+        int h = Screen.height;
         if (hp <= 0.1) {
-            GUI.Button(new Rect(10, 10, 200, 20), "Dead");
+            GUI.Button(new Rect(10, 30, 200, 20), "Dead");
             return;
         }
-        GUI.Button(new Rect(10, 10, hp * 200, 20), "");
-        GUI.Button(new Rect(10, 10, 200, 20), "");
+        GUI.Button(new Rect(10, 30, hp * 200, 20), "");
+        GUI.Button(new Rect(10, 30, 200, 20), "");
+        GUI.HorizontalScrollbar(new Rect(40, 5, w - 80,20), transform.position.x, 2, 0, 100);
+
     }
 
 }
