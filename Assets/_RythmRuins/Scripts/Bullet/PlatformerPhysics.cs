@@ -43,7 +43,13 @@ public class PlatformerPhysics:ActorPhysics{
         //go.transform.parent = transform;
     }
     void OnTriggerEnter(Collider other) {
-        int mask = (1<<LayerMask.NameToLayer("BadUnits")) | (1<<LayerMask.NameToLayer("BadDamage"));
+        RegisterHit(other);
+    }
+    void OnTriggerStay(Collider other) {
+        RegisterHit(other);
+    }
+    void RegisterHit(Collider other) {
+        int mask = (1 << LayerMask.NameToLayer("BadUnits")) | (1 << LayerMask.NameToLayer("BadDamage"));
         int result = (1 << other.gameObject.layer) & (mask);
         if (result == 0) return;
         Debug.Log("Hit " + other.transform.name);
@@ -54,7 +60,7 @@ public class PlatformerPhysics:ActorPhysics{
         if (invuln) return;
         if (onStartHurt != null) onStartHurt();
         hp -= 0.2f;
-        velocity = new Vector2(facingRight*-10, 10);
+        velocity = new Vector2(facingRight * -10, 10);
     }
     void CheckDeath() {
         if(hp<=0){

@@ -9,6 +9,7 @@ public class DamageArea : MonoBehaviour {
     bool dead = false;
     bool going = false;
     public bool trigger = false;
+    int deadCounter = 0;
     float t {
         get {
             return Mathf.InverseLerp(startTime, endTime, Time.time);
@@ -30,9 +31,12 @@ public class DamageArea : MonoBehaviour {
             Arm(1);
         }
         if (!going) return;
-        if (dead) {
-            if(onComplete!=null)onComplete();
+        if (deadCounter > 2) {
+            if (onComplete != null) onComplete();
             Destroy(gameObject);
+        }
+        if (dead) {
+            deadCounter++;
         }
         mat.SetFloat("_Thickness", t);
         if (t >= 1) {
