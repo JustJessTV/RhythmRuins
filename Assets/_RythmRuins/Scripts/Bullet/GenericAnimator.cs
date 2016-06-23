@@ -7,6 +7,8 @@ public class GenericAnimator : MonoBehaviour {
     public bool loop;
     public bool kill = true;
     public bool testReset;
+    public int start = 0;
+    public int end = 0;
     AnimNode anSet;
     Sprite[] sprites;
     SpriteRenderer sr;
@@ -14,10 +16,11 @@ public class GenericAnimator : MonoBehaviour {
     void Awake() {
         sr = GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>(sheetName);
+        if (end == 0) end = sprites.Length;
         if (loop)
-            anSet = new AnimNode(ref sr, sprites, 0, sprites.Length - 1, fps, AnimNodeType.Loop);
+            anSet = new AnimNode(ref sr, sprites, start, end - 1, fps, AnimNodeType.Loop);
         else
-            anSet = new AnimNode(ref sr, sprites, 0, sprites.Length - 1, fps, AnimNodeType.Single);
+            anSet = new AnimNode(ref sr, sprites, start, end - 1, fps, AnimNodeType.Single);
         anSet.Play();
         if(kill)
             anSet.OnComplete = Kill;

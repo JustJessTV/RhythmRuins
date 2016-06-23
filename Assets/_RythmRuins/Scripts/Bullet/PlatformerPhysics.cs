@@ -28,7 +28,7 @@ public class PlatformerPhysics:ActorPhysics{
     }
     public void Shoot(Vector3 dir, Transform transform) {
         float magnitude = dir.magnitude;
-        if (magnitude < 1) {
+        if (magnitude < .9f) {
             lastFrameShot = false;
             return;
         }
@@ -36,7 +36,7 @@ public class PlatformerPhysics:ActorPhysics{
         if(onStartAttack!=null)onStartAttack();
         lastFrameShot = true;
         dir.Normalize();
-        Object obj = Resources.Load("ShotSweep");
+        Object obj = Resources.Load(PlatformerController.main.weapon.ToString());
 
         GameObject go = Instantiate( obj as GameObject,
             transform.position, Quaternion.LookRotation(dir,Vector3.forward))as GameObject;

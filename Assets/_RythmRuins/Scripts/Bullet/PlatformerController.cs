@@ -26,6 +26,7 @@ public class PlatformerController : PlatformerPhysics {
     public void SetWeapon(WeaponType weapon) {
         this.weapon = weapon;
         pm.UpdateSpriteSet();
+        Debug.Log("Switching Weapon " + weapon.ToString());
     }
     void SwapCharacters(CharType character) {
         this.character = character;
@@ -77,7 +78,8 @@ public class PlatformerController : PlatformerPhysics {
             0);
         Shoot(look, transform);
         if (player.GetButtonDown("Swap")) {
-            swap = true;
+            Root.playerManger.SetWeapon(WeaponType.Poke);
+            //swap = true;
         }
         if (player.GetButtonDown("Pause")) {
             if (GameStateHandler.gameState == GameStateHandler.State.main)

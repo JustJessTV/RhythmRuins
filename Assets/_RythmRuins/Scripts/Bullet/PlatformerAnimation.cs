@@ -35,8 +35,6 @@ public class PlatformerAnimation : MonoBehaviour {
     public void UpdateSpriteSet() {
         switch (pc.character) {
             case CharType.Etta:
-                BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
-            /*
                 switch (pc.weapon) {
                     case WeaponType.Bare:
                         BuildSpriteLib(Root.main.animSets.ETTA_BARE);
@@ -47,11 +45,10 @@ public class PlatformerAnimation : MonoBehaviour {
                     case WeaponType.Sweep:
                         BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
                         break;
-                }*/
+                }
                 break;
             case CharType.Triq:
                 BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
-            /*
                 switch (pc.weapon) {
                     case WeaponType.Bare:
                         BuildSpriteLib(Root.main.animSets.TRIQ_BARE);
@@ -62,7 +59,7 @@ public class PlatformerAnimation : MonoBehaviour {
                     case WeaponType.Sweep:
                         BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
                         break;
-                }*/
+                }
                 break;
         }
     }

@@ -21,7 +21,7 @@ public class PlayerManager {
         GameObject.Instantiate(Resources.Load("SwapPrompt"));
     }
     public void SetWeapon(WeaponType weapon) {
-        if (storeWeapon != WeaponType.Bare) return;
+        if (storeWeapon == WeaponType.Bare) return;
         if (onSwitchWeapon != null) onSwitchWeapon(weapon);
     }
     WeaponType storeWeapon;
