@@ -10,7 +10,7 @@ GameObject:
   - 4: {fileID: 446454}
   - 198: {fileID: 19803036}
   - 199: {fileID: 19960310}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,7 +29,7 @@ GameObject:
   - 65: {fileID: 6564898}
   - 23: {fileID: 2330290}
   - 114: {fileID: 11435748}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: beat0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,7 +73,7 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 0
   m_Materials:
-  - {fileID: 2100000, guid: 44f0ea87196f9c24f8b7dd5c55f17f65, type: 2}
+  - {fileID: 2100000, guid: b749900db0f96a544af0f5c25a62f9d4, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 1

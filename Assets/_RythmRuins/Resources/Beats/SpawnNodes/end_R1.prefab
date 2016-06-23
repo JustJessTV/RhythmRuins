@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setScreenPercent: 1
   xPercent: 0.6
-  yPercent: 0.15
+  yPercent: 0.1
   zDist: 20
   name: end_R1
 --- !u!135 &13508900
