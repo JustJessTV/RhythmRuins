@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 483610}
   - 114: {fileID: 11455314}
+  - 114: {fileID: 11404596}
   m_Layer: 9
   m_Name: ShotSweep
   m_TagString: Untagged
@@ -108,6 +109,17 @@ TrailRenderer:
       rgba: 16777215
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
+--- !u!114 &11404596
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9c943390bd97a4398fd33cf7b2ddc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11427776
 MonoBehaviour:
   m_ObjectHideFlags: 1

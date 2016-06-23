@@ -16,7 +16,7 @@ public class TileLogic : MonoBehaviour {
 	void Update () {
         if (!hasSpawned && CamController.GetDistFromRightWall(transform.position) < 20) {
             hasSpawned = true;
-            GameObject go = Instantiate(gameObject,transform.position+Vector3.right*10,transform.rotation)as GameObject;
+            GameObject go = Instantiate(gameObject,transform.position+Vector3.right*3,transform.rotation)as GameObject;
         }
 	}
 }

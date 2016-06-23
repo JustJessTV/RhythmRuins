@@ -8,6 +8,14 @@ public class BaddieTurret : Damagie {
     public bool charging = false;
     public float nextShot;
     public float delayTime = 0.5f;
+    bool playAnim = false;
+    AnimNode anBeam;
+    Sprite[] sprites;
+    public SpriteRenderer sr;
+    void Awake() {
+        sprites = Resources.LoadAll<Sprite>("pod and beam");
+        anBeam = new AnimNode(ref sr, sprites, 5, 19, 15, AnimNodeType.Single);
+    }
     void Start() {
         hp = 5;
         Vector3 spawnPose = transform.position;
@@ -17,6 +25,7 @@ public class BaddieTurret : Damagie {
     }
 	void Update () {
         if(!charging)GotoTarget(PlatformerController.main.transform);
+        if (playAnim) anBeam.Update();
 	}
     void GotoTarget(Transform target) {
         Vector3 dir = target.position - pivot.transform.position;
@@ -38,6 +47,12 @@ public class BaddieTurret : Damagie {
         da.onComplete = Complete;
         da.Arm(0.5f);
         charging = true;
+        anBeam.Play();
+        playAnim = true;
+    }
+    void BeamDone() {
+        sr.sprite = null;
+        playAnim = false;
     }
     void Complete() {
         nextShot = Time.time + delayTime;
@@ -47,11 +62,13 @@ public class BaddieTurret : Damagie {
         if (shot != null) {
             Destroy(shot);
         }
+        Vector3 point = transform.position;
         GameObject go = Instantiate(Resources.Load("DamageZoneCircle"))as GameObject;
-        go.transform.position = transform.position;
+        go.transform.position = point;
         go.transform.localScale = new Vector3(8, 0.1f, 8);
         DamageArea da = go.GetComponent<DamageArea>();
         da.Arm(0.5f);
+        da.onComplete = () => { GameObject boom = Instantiate(Resources.Load("FX/Boom"), point, Quaternion.identity) as GameObject; boom.transform.localScale = Vector3.one * 3; };
         base.Kill();
     }
 }

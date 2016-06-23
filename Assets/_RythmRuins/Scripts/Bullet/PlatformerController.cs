@@ -29,7 +29,17 @@ public class PlatformerController : PlatformerPhysics {
         player = ReInput.players.GetPlayer(0);
     }
     void Update() {
-
+        float camX = Camera.main.transform.position.x;
+        if (transform.position.x > camX + 10) {
+            Vector3 temp = transform.position;
+            temp.x = camX + 10;
+            transform.position = temp;
+        }
+        if (transform.position.x < camX - 10) {
+            Vector3 temp = transform.position;
+            temp.x = camX - 10;
+            transform.position = temp;
+        }
         if (swap) {
             swap = false;
             if (PlatformerController.main.character == CharType.Etta) {
@@ -56,5 +66,24 @@ public class PlatformerController : PlatformerPhysics {
         Shoot(look, transform);
         Debug.DrawRay(transform.position, look);
         base.Update();
+
+        if (player.GetButtonDown("Up")) {
+            Debug.Log("Up!");
+        }
+        if (player.GetButtonDown("Down")) {
+            Debug.Log("Down!");
+        }
+        if (player.GetButtonDown("Left")) {
+            Debug.Log("Left!");
+        }
+        if (player.GetButtonDown("Right")) {
+            Debug.Log("Right!");
+        }
+        if (player.GetButtonDown("WeaponA")) {
+            Debug.Log("Weapon A");
+        }
+        if (player.GetButtonDown("WeaponB")) {
+            Debug.Log("Weapon B");
+        }
     }
 }
