@@ -24,7 +24,7 @@ public class BGSpawner : DispatchEvent {
         float dist = Random.Range(12f, 80);
         float slide = Random.Range(10, 20);
         GameObject go = GameObject.Instantiate(buildings[index], 
-            CamController.GetPointAtDistRight(dist) + Vector3.right * (slide+offset) + Vector3.forward * 2 + Vector3.up*(8-point.y), 
+            CamController.GetPointAtDistRight(dist) + Vector3.right * (slide+offset) + Vector3.forward * 2+Vector3.up*3.35f, 
             Quaternion.identity) as GameObject;
     }
     void SimulateSpawn(int dist) {
