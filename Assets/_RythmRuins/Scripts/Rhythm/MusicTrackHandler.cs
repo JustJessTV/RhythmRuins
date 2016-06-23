@@ -90,6 +90,7 @@ public class MusicTrackHandler : MonoBehaviour {
     void PlayAll(bool set) {
         PlayAll(set, 1.0f);
     }
+    
     void PlayAll(bool set, float volume) {
         foreach (SoundTrack st in soundTrack) {
             st.audSrc.volume = volume;
@@ -155,6 +156,12 @@ public class MusicTrackHandler : MonoBehaviour {
     }
     public static void GameEnd() {
         gameState = GameState.gameEnd;
+    }
+    public void OnSwitchPlayer() { 
+    
+    }
+    public void OnSwitchWeapon() {
+    
     }
     void StateManager() {
         if (cubeDrive != null) {
