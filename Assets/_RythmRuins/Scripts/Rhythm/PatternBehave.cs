@@ -6,7 +6,9 @@ namespace RhythmRealm
 {
     public class PatternBehave : MonoBehaviour
     {
-
+        public string fileToLoad = "";
+        static public GameObject psHit;
+        static public GameObject psMiss;
         public static float delayFactor;
         public static float beginPlayTime;
      //   public static bool gameBegin;
@@ -56,13 +58,15 @@ namespace RhythmRealm
         public static PatternPlayState patternPlayState;
         public List<GameObject> spawnPoints;
         
-        BeatManager beatManager;
+        static BeatManager beatManager;
         int playDetectIndexer;
         int playExpiredIndexer;
         int spawnIndexer;
         // Use this for initialization
         void Start()
         {
+            psHit = Resources.Load("Beats/psHit") as GameObject;
+            psMiss = Resources.Load("Beats/psMiss") as GameObject;
             // debugging
             foreach (SpawnPath s in spawnPaths) {
                 Debug.Log(s.spawnPoint+" testng ::" + s.beatObj.name);
@@ -71,6 +75,13 @@ namespace RhythmRealm
         //    if (delayFactor == 0) delayFactor = 3;
             delayFactor = BeatManager.getFullNote*5;
             Debug.Log(delayFactor + " factor");
+
+            BeatControllInterface.pressedLeft   += HitLeft;
+            BeatControllInterface.pressedUp     += HitUp;
+            BeatControllInterface.pressedRight  += HitRight;
+            BeatControllInterface.pressedDown   += HitDown;
+            BeatControllInterface.pressedWeaponA += HitWeaponA;
+            BeatControllInterface.pressedWeaponB += HitWeaponB;
         }
 
         // Update is called once per frame
@@ -100,7 +111,7 @@ namespace RhythmRealm
         }
         void BeginPlay()
         {
-            beatManager.LoadRecordedKeys("pizza");
+            beatManager.LoadRecordedKeys(fileToLoad);
             // call start all music
             beginPlayTime = Time.time;
             playDetectIndexer = 0;
@@ -112,7 +123,7 @@ namespace RhythmRealm
         void PatternDetector(float delay)
         {
 
-            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playDetectIndexer].time - BeatManager.getFullNote)
+            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playDetectIndexer].time - BeatManager.getHalfNote)
             {
                 Debug.Log("expect button " + beatManager.inputAndValue[playDetectIndexer].index);
                 BeatManager.expectedInputs.Add(beatManager.inputAndValue[playDetectIndexer]);
@@ -120,12 +131,39 @@ namespace RhythmRealm
                 playDetectIndexer++;
             }
    //         Debug.Log("time elapse ");
-            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playExpiredIndexer].time + BeatManager.getFullNote)
+            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playExpiredIndexer].time + BeatManager.getHalfNote)
             {
                 Debug.Log("expired button " + beatManager.inputAndValue[playExpiredIndexer].index);
+                if (!beatManager.inputAndValue[playExpiredIndexer].hit) {
+                    Root.playerManger.energy -= 0.05f;
+                }
                 BeatManager.expectedInputs.Remove(beatManager.inputAndValue[playExpiredIndexer]);
                 playExpiredIndexer++;
             }
+        }
+  //      Root.playermanager.enery+
+        public static float KeyPressedValidation(int index, float timePressed) {
+            Vector3 pos = spawnPaths[index].endPoint.transform.position;
+            float timePressedAdjust = Time.time - beginPlayTime;
+            GameObject white = Instantiate(psMiss);
+            white.transform.position = pos;
+            Destroy(white, 1);
+            for (int i = 0; i < BeatManager.expectedInputs.Count; i++) {
+                if (BeatManager.expectedInputs[i].index == index)
+                {
+                    BeatManager.expectedInputs[i].hit = true;
+                    float raw = timePressedAdjust - (delayFactor + BeatManager.expectedInputs[i].time);
+                    Debug.Log(timePressedAdjust + " : " + (delayFactor + BeatManager.expectedInputs[i].time));
+                    float abs = Mathf.Abs(raw);
+                    Debug.Log("<color=green>hit" + abs + "</color>");
+                    GameObject green = Instantiate(psHit);
+                    green.transform.position = pos;
+                    Destroy(green, 1);
+                    BeatManager.expectedInputs.RemoveAt(i);
+                    return abs;
+                }
+            }
+            return 2;
         }
         void PatternSpawner()
         {
@@ -163,6 +201,34 @@ namespace RhythmRealm
        //         Debug.Log("from  : " + beatManager.inputAndValue[butNum].index);
                 spawnIndexer++;
             }
+        }
+
+
+        public static void HitLeft()
+        {
+            KeyPressedValidation(0, Time.time);
+        }
+
+        public static void HitUp()
+        {
+            KeyPressedValidation(1, Time.time);
+        }
+
+        public static void HitRight()
+        {
+            KeyPressedValidation(2, Time.time);
+        }
+
+        public static void HitDown()
+        {
+            KeyPressedValidation(3, Time.time);
+        }
+
+        public static void HitWeaponA() {
+            Root.playerManger.SetWeapon(WeaponType.Poke);
+        }
+        public static void HitWeaponB() {
+            Root.playerManger.SetWeapon(WeaponType.Sweep);
         }
     }
 }

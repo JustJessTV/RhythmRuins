@@ -42,25 +42,27 @@ public class BeatControllInterface : MonoBehaviour {
         player = ReInput.players.GetPlayer(1-(int)character);
     }
     void ButtonDetect() {
-        if (player.GetButton("Left")) {
+        if (player.GetButtonDown("Left") || Input.GetKeyDown (KeyCode.LeftArrow)) {
             if (pressedLeft != null) pressedLeft();
         }
-        if (player.GetButton("Up"))
+        if (player.GetButtonDown("Up") || Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (pressedUp != null) pressedUp();
         }
-        if (player.GetButton("Right"))
+        if (player.GetButtonDown("Right") || Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (pressedLeft != null) pressedLeft();
+            if (pressedRight != null) pressedRight();
         }
-        if (player.GetButton("Down"))
+        if (player.GetButtonDown("Down") || Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (pressedDown != null) pressedDown();
         }
-        if (player.GetButton("WeaponA")) {
+        if (player.GetButtonDown("WeaponA") || Input.GetKeyDown(KeyCode.Alpha1))
+        {
             if (pressedWeaponA != null) pressedWeaponA();
         }
-        if (player.GetButton("WeaponB")) {
+        if (player.GetButtonDown("WeaponB") || Input.GetKeyDown(KeyCode.Alpha2))
+        {
             if (pressedWeaponB != null) pressedWeaponB();
         }
     }
