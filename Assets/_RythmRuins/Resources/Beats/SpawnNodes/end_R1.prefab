@@ -107,8 +107,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setScreenPercent: 1
   xPercent: 0.6
-  yPercent: 0.1
-  zDist: 20
+  yPercent: 0.025
+  zDist: 15
   name: end_R1
 --- !u!135 &13508900
 SphereCollider:

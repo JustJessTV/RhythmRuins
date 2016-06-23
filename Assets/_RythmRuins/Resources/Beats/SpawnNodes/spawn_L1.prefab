@@ -107,7 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   setScreenPercent: 1
   xPercent: 0
-  yPercent: 0.15
+  yPercent: 0.1
   zDist: 15
   name: spawn_L1
 --- !u!135 &13518682
