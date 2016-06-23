@@ -24,7 +24,7 @@ public class BaddieTurret : Damagie {
         transform.position = spawnPose;
     }
 	void Update () {
-        if(!charging)GotoTarget(PlatformerController.main.transform);
+        if (!playAnim) GotoTarget(PlatformerController.main.transform);
         if (playAnim) anBeam.Update();
 	}
     void GotoTarget(Transform target) {
@@ -48,6 +48,7 @@ public class BaddieTurret : Damagie {
         da.Arm(0.5f);
         charging = true;
         anBeam.Play();
+        anBeam.OnComplete = BeamDone;
         playAnim = true;
     }
     void BeamDone() {
