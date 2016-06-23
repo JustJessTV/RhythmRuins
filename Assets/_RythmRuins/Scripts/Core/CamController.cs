@@ -22,8 +22,15 @@ public class CamController : MonoBehaviour {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
         LeftWall = Vector3.Cross(planes[0].normal, Vector3.up);
         RightWall = Vector3.Cross(planes[1].normal*-1, Vector3.up);
+    }
+    void OnEnable() {
         GameStateHandler.beginPlay += GameEnter;
-        GameStateHandler.gameOver+=GameEnd;
+        GameStateHandler.gameOver += GameEnd;
+    }
+    void OnDisable() {
+        GameStateHandler.beginPlay -= GameEnter;
+        GameStateHandler.gameOver -= GameEnd;
+        _cam = null;
     }
 	void Start () {
 	

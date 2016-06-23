@@ -14,14 +14,33 @@ public class PlatformerController : PlatformerPhysics {
     public CharType character;
     public WeaponType weapon;
     bool running = false;
+    public float startTime;
+    public float finalScore;
     void Awake() {
         main = this;
         base.Awake();
+        base.OnDeath += Death;
+    }
+    void Start() {
+        pm.sr.enabled = false;
         player = ReInput.players.GetPlayer(0);
+    }
+    void OnEnable() {
+
         Root.playerManger.onSwitchPlayer += SwapCharacters;
         Root.playerManger.onSwitchWeapon += SetWeapon;
         GameStateHandler.beginPlay += SpawnPlayer;
-        pm.sr.enabled = false;
+    }
+    void OnDisable() {
+
+        Root.playerManger.onSwitchPlayer -= SwapCharacters;
+        Root.playerManger.onSwitchWeapon -= SetWeapon;
+        GameStateHandler.beginPlay -= SpawnPlayer;
+    }
+    void Death() {
+        finalScore = Time.time - startTime;
+        Debug.Log("You got a score of: " + (finalScore));
+        GameStateHandler.EndGame();
     }
     public void SetWeapon(WeaponType weapon) {
         this.weapon = weapon;
@@ -29,6 +48,11 @@ public class PlatformerController : PlatformerPhysics {
         Debug.Log("Switching Weapon " + weapon.ToString());
     }
     void SwapCharacters(CharType character) {
+        if (this.character == character) return;
+        invuln = false;
+        float temp = hp;
+        hp = reserveHP;
+        reserveHP = temp;
         this.character = character;
         pm.UpdateSpriteSet();
         player = ReInput.players.GetPlayer((int)character);
@@ -41,8 +65,19 @@ public class PlatformerController : PlatformerPhysics {
         pm.sr.enabled = true;
         Jump();
         JumpRelease();
+        startTime = Time.time;
     }
     void Update() {
+        if (player.GetButtonDown("Pause")) {
+            if (GameStateHandler.gameState == GameStateHandler.State.main)
+                GameStateHandler.BeginGame();
+            if (GameStateHandler.gameState == GameStateHandler.State.gameOver) {
+                GameStateHandler.gameState = GameStateHandler.State.transitionToMain;
+                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+            }
+        }
+        if (GameStateHandler.gameState != GameStateHandler.State.gamePlaying) return;
+        reserveHP = Mathf.Clamp01(reserveHP + Time.deltaTime * 0.033f);
         float camX = Camera.main.transform.position.x;
         if (transform.position.x > camX + 10) {
             Vector3 temp = transform.position;
@@ -78,12 +113,10 @@ public class PlatformerController : PlatformerPhysics {
             0);
         Shoot(look, transform);
         if (player.GetButtonDown("Swap")) {
-            Root.playerManger.SetWeapon(WeaponType.Poke);
+            //Root.playerManger.SetWeapon(WeaponType.Poke);
+            UnityEngine.SceneManagement.SceneManager.UnloadScene(0);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
             //swap = true;
-        }
-        if (player.GetButtonDown("Pause")) {
-            if (GameStateHandler.gameState == GameStateHandler.State.main)
-                GameStateHandler.BeginGame();
         }
         Debug.DrawRay(transform.position, look);
         base.Update();

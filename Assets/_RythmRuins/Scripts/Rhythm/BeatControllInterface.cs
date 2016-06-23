@@ -30,10 +30,10 @@ public class BeatControllInterface : MonoBehaviour {
 
     Player player;
     void Awake() {
-        Root.playerManger.onSwitchPlayer += SwapPlayer;
     }
     void Start() {
         player = ReInput.players.GetPlayer(0);
+        Root.playerManger.onSwitchPlayer += SwapPlayer;
     }
 	void Update () {
         ButtonDetect();

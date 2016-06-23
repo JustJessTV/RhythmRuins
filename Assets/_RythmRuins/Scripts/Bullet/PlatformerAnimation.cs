@@ -28,10 +28,21 @@ public class PlatformerAnimation : MonoBehaviour {
         pc.onStopJump       += StopJump;
         pc.onStartAttack    += StartAttack;
         pc.onStartHurt      += StartHurt;
-
-        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
-
 	}
+    void Start() {
+        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
+        pc.OnDeath += Death;
+    }
+    void Death() {
+        if (pc.character == CharType.Triq) {
+            sr.sprite = sprites[22];
+        }
+        else {
+            sr.sprite = sprites[17];
+        }
+        pc.invuln = true;
+        anCurrent = null;
+    }
     public void UpdateSpriteSet() {
         switch (pc.character) {
             case CharType.Etta:
@@ -84,7 +95,9 @@ public class PlatformerAnimation : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        anCurrent.Update();
+        if (anCurrent != null) {
+            anCurrent.Update();
+        }
 	}
     void SwapDirection(bool flipX) {
         sr.flipX = flipX;
