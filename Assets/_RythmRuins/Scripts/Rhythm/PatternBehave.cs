@@ -24,7 +24,7 @@ namespace RhythmRealm
                 this.buttonIndex        = index;
                 spawnPaths.Add(this);
                 this.beatObj                 = Resources.Load("beats/beat"+index.ToString()) as GameObject;
-                this.beatObj.name = "beat" + index;
+            //    this.beatObj.name = "beat" + index;
                 Debug.Log(this.spawnPoint.name + ":" + this.endPoint.name + ":" + this.beatObj);
                 this.beatScript              = beatObj.GetComponent<BeatBehave>();
                 this.beatScript.spawnPoint   = this.spawnPoint;

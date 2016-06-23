@@ -9,16 +9,30 @@ namespace RhythmRealm
     {
 
         public static int BPM;
+
         private static decimal fullNote;
         private static decimal quaterNote;
         private static decimal halfNote;
 
-        delegate void HitFullNote();
-        event HitFullNote hitFullNote;
-        delegate void HitHalfNote();
-        event HitHalfNote hitHalfNote;
-        delegate void FinishAnalyzeRecordedKeys();
-        event FinishAnalyzeRecordedKeys finishedAnalyzeRecordedKeys;
+        public static float getFullNote {
+            get {
+                return (float)fullNote;
+            }
+        }
+        private static float _fullBar;
+        public static float getFullBar {
+            get {
+                return (float)(fullNote * 4);
+            }
+        }
+        public delegate void HitFullBar();
+        public static event HitFullBar hitFullBar;
+        public delegate void HitFullNote();
+        public static event HitFullNote hitFullNote;
+        public delegate void HitHalfNote();
+        public static event HitHalfNote hitHalfNote;
+        public delegate void FinishAnalyzeRecordedKeys();
+        public static event FinishAnalyzeRecordedKeys finishedAnalyzeRecordedKeys;
 
         public bool setBPM;
         public bool startTimer;

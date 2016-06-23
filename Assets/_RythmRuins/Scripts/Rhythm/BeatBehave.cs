@@ -34,7 +34,7 @@ public class BeatBehave : MonoBehaviour {
         camPoint = RhythmRealm.GameRhythmManager.rhythmCamPos;
    //     Debug.Log(camPoint);
         particles = GetComponentInChildren<ParticleSystem>();
-        travelDir = (endPoint.transform.position - spawnPoint.transform.position).normalized;
+        travelDir = (this.endPoint.transform.position - this.spawnPoint.transform.position).normalized;
         startTime = Time.time;
         delayFactor = 1 / delay;
         state = States.travel;
