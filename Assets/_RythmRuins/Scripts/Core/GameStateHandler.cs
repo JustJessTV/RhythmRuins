@@ -41,6 +41,9 @@ public class GameStateHandler : MonoBehaviour {
         gameState = State.gameEnd;
     }
     public static void TransitionToPlayComplete() {
+        if (beginPlay != null) {
+            beginPlay();
+        }
         gameState = State.beginGamePlay;
     }
 	// Use this for initialization
