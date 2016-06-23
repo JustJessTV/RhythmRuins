@@ -5,6 +5,8 @@ public class GenericAnimator : MonoBehaviour {
     public string sheetName;
     public float fps;
     public bool loop;
+    public bool kill = true;
+    public bool testReset;
     AnimNode anSet;
     Sprite[] sprites;
     SpriteRenderer sr;
@@ -17,12 +19,17 @@ public class GenericAnimator : MonoBehaviour {
         else
             anSet = new AnimNode(ref sr, sprites, 0, sprites.Length - 1, fps, AnimNodeType.Single);
         anSet.Play();
-        anSet.OnComplete = Kill;
+        if(kill)
+            anSet.OnComplete = Kill;
     }
 	
 	// Update is called once per frame
 	void Update () {
         anSet.Update();
+        if (testReset) {
+            testReset = false;
+            Reset();
+        }
 	}
     void Kill() {
         if (parent != null) {
@@ -31,5 +38,8 @@ public class GenericAnimator : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+    }
+    public void Reset() {
+        anSet.Play();
     }
 }
