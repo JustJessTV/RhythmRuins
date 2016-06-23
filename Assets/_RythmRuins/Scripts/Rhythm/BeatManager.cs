@@ -22,6 +22,7 @@ namespace RhythmRealm
 
         public bool setBPM;
         public bool startTimer;
+        public static bool beginTimer;
         public bool testHit;
 
         public static decimal sessionTimer;
@@ -80,6 +81,8 @@ namespace RhythmRealm
         {
             hitFullNote += FullNoteDebug;
             debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            debugCube.layer = 5;
+            Destroy(debugCube.GetComponent<BoxCollider>());
             if (BPM == 0) BPM = 140;
             CalculateBeat(BPM, out fullNote, out quaterNote);
         }
@@ -140,7 +143,7 @@ namespace RhythmRealm
         void FullNoteDebug()
         {
             decimal t = (decimal)Time.time - sessionTimer;
-            Debug.Log("Beep!" + t.ToString() + " d : " + Time.deltaTime);
+       //     Debug.Log("Beep!" + t.ToString() + " d : " + Time.deltaTime);
             Color c = new Color(Random.Range(0.2f, 1.0f),
                 Random.Range(0.2f, 1.0f),
                 Random.Range(0.2f, 1.0f));
@@ -226,11 +229,11 @@ namespace RhythmRealm
         {
             inputAndValue.Clear();
         }
-        public void LoadRecordedKeys()
+        public void LoadRecordedKeys(string fileName)
         {
-            string name = PatternGenerator.fileName;
-            Debug.Log(name);
-            string preJson = PatternPath.LoadPatternFile(name);
+          //  string name = PatternGenerator.fileName;
+            Debug.Log(fileName);
+            string preJson = PatternPath.LoadPatternFile(fileName);
             JSONNode jc = JSONClass.Parse(preJson) as JSONNode;
             Debug.Log(jc.Count);
             for (int i = 0; i < jc.Count; i++)

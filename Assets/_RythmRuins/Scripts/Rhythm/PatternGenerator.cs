@@ -89,7 +89,7 @@ namespace RhythmRealm
                     if (GUILayout.Button("Playback debug")) {
                         beatManager.ClearRecordedKeys();
                         Debug.Log(beatManager.inputAndValue.Count);
-                        beatManager.LoadRecordedKeys();
+                        beatManager.LoadRecordedKeys(PatternGenerator.fileName);
                         beatManager.setBPM = true;
                         beatManager.startTimer = true;
                         audSrc.Stop();

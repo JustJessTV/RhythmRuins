@@ -9,18 +9,30 @@ namespace RhythmRealm
 
         public static float delayFactor;
         public static float beginPlayTime;
-
+     //   public static bool gameBegin;
         public class SpawnPath
         {
             int buttonIndex;
-            Vector3 spawnPoint;
-            Vector3 endPoint;
-            public SpawnPath(Vector3 spawn, Vector3 end, int index)
+            public GameObject beatObj;
+            public BeatBehave beatScript;
+            public GameObject spawnPoint;
+            public GameObject endPoint;
+            public SpawnPath(GameObject spawn, GameObject end, int index)
             {
-                this.spawnPoint = spawn;
-                this.endPoint = end;
-                this.buttonIndex = index;
+                this.spawnPoint         = spawn;
+                this.endPoint           = end;
+                this.buttonIndex        = index;
                 spawnPaths.Add(this);
+                this.beatObj                 = Resources.Load("beats/beat"+index.ToString()) as GameObject;
+                this.beatObj.name = "beat" + index;
+                Debug.Log(this.spawnPoint.name + ":" + this.endPoint.name + ":" + this.beatObj);
+                this.beatScript              = beatObj.GetComponent<BeatBehave>();
+                this.beatScript.spawnPoint   = this.spawnPoint;
+                this.beatScript.endPoint     = this.endPoint;
+            }
+            public void Spawn() {
+                GameObject go = Instantiate(this.beatObj);
+                
             }
         }
         private static List<SpawnPath> _spawnPaths;
@@ -41,7 +53,7 @@ namespace RhythmRealm
             begin,
             play
         }
-        public PatternPlayState patternPlayState;
+        public static PatternPlayState patternPlayState;
         public List<GameObject> spawnPoints;
 
         BeatManager beatManager;
@@ -50,9 +62,13 @@ namespace RhythmRealm
         // Use this for initialization
         void Start()
         {
+            // debugging
+            foreach (SpawnPath s in spawnPaths) {
+                Debug.Log(s.spawnPoint+" testng ::" + s.beatObj.name);
+            }
             beatManager = GetComponent<BeatManager>();
-            if (delayFactor == 0) delayFactor = 3;
-
+        //    if (delayFactor == 0) delayFactor = 3;
+            delayFactor = 5;
         }
 
         // Update is called once per frame
@@ -60,7 +76,7 @@ namespace RhythmRealm
         {
             if (patternPlayState == PatternPlayState.begin)
             {
-
+                Debug.Log("paternBehave begin");
                 BeginPlay();
             }
             if (patternPlayState == PatternPlayState.play)
@@ -82,7 +98,7 @@ namespace RhythmRealm
         }
         void BeginPlay()
         {
-            beatManager.LoadRecordedKeys();
+            beatManager.LoadRecordedKeys("pizza");
             // call start all music
             beginPlayTime = Time.time;
             playDetectIndexer = 0;
@@ -95,6 +111,7 @@ namespace RhythmRealm
 
             if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playDetectIndexer].time)
             {
+                Debug.Log("expect button " + beatManager.inputAndValue[playDetectIndexer].index);
                 playDetectIndexer++;
             }
         }
@@ -120,10 +137,18 @@ namespace RhythmRealm
                     }
                 }
             }
+            int butNum = beatManager.inputAndValue[spawnIndexer].index;
             if ((Time.time - beginPlayTime) > beatManager.inputAndValue[spawnIndexer].time)
             {
                 // spawn here
-                Debug.Log("spawn : " + beatManager.inputAndValue[spawnIndexer].time);
+                if (butNum > 3) {
+                    Debug.Log(butNum + "skip");
+                    spawnIndexer++;
+                    return;
+                }
+                spawnPaths[butNum].Spawn();
+       //         Debug.Log("spawn : " + beatManager.inputAndValue[butNum].time);
+       //         Debug.Log("from  : " + beatManager.inputAndValue[butNum].index);
                 spawnIndexer++;
             }
         }

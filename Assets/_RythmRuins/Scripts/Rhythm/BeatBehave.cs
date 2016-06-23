@@ -3,10 +3,10 @@ using System.Collections;
 
 public class BeatBehave : MonoBehaviour {
 
-    public Vector3 spawnPoint;
-    public Vector3 endPoint;
+    public GameObject spawnPoint;
+    public GameObject endPoint;
     public Vector3 camPoint;
-    public float delay;
+    public static float delay;
     public float fullNote;
 
     private Vector3 travelDir;
@@ -24,12 +24,17 @@ public class BeatBehave : MonoBehaviour {
         fade
     }
     States state;
+
+    void Awake() {
+        delay = RhythmRealm.PatternBehave.delayFactor;
+    }
 	// Use this for initialization
 	void Start () {
+        
         camPoint = RhythmRealm.GameRhythmManager.rhythmCamPos;
-        Debug.Log(camPoint);
+   //     Debug.Log(camPoint);
         particles = GetComponentInChildren<ParticleSystem>();
-        travelDir = (endPoint - spawnPoint).normalized;
+        travelDir = (endPoint.transform.position - spawnPoint.transform.position).normalized;
         startTime = Time.time;
         delayFactor = 1 / delay;
         state = States.travel;
@@ -41,7 +46,7 @@ public class BeatBehave : MonoBehaviour {
 	void Update () {
         if(state == States.travel){
             lerpDX = (Time.time - startTime) * delayFactor;
-            this.transform.position = Vector3.Lerp(spawnPoint, endPoint, lerpDX);
+            this.transform.position = Vector3.Lerp(spawnPoint.transform.position, endPoint.transform.position, lerpDX);
             if (lerpDX > 1) {
                 state = States.end;
             }

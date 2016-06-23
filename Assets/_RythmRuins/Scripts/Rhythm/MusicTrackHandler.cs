@@ -26,7 +26,7 @@ public class MusicTrackHandler : MonoBehaviour {
         gameEnd
     }
 
-    public GameState gameState;
+    public static GameState gameState;
 
     string MAIN     = "SynthEttriq_BASE_OUTSYNC";
     string ETTA     = "SynthEttriq_BackingETTA";
@@ -122,7 +122,7 @@ public class MusicTrackHandler : MonoBehaviour {
 	void Start () {
         texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
         Shader.SetGlobalTexture("_SPECTRUM", texSpectrum);
-        beatManager = GetComponent<RhythmRealm.BeatManager>();
+        beatManager = FindObjectOfType<RhythmRealm.BeatManager>().GetComponent<RhythmRealm.BeatManager>();
         
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Tracks") as AudioClip[];
         
@@ -137,12 +137,25 @@ public class MusicTrackHandler : MonoBehaviour {
 	}
 
     void StateManager() {
-
+        if (cubeDrive != null) {
+            float min, max, avg;
+            float[] spec = AnalyzeSound.GetSpectrum(cubeDrive, 64, out min, out max, out avg);
+            Color[] clrs = new Color[64];
+            for (int i = 0; i < spec.Length; i++)
+            {
+                clrs[i] = Color.black;
+                clrs[i][0] = spec[i];
+            }
+            texSpectrum.SetPixels(clrs);
+            texSpectrum.Apply(false);
+            beatManager.debugCube.transform.position = new Vector3(0, max, 0);  
+        }
         if (gameState == GameState.idle) {
             SoundTrack st = GetTrack(MAIN);
             st.audSrc.volume = 0.5f;
             st.audSrc.pitch = 0.5f;
             gameState = GameState.main;
+            cubeDrive = GetTrack(MAIN).audSrc;
         }
         if (gameState == GameState.main) {
             
@@ -166,7 +179,7 @@ public class MusicTrackHandler : MonoBehaviour {
         if (gameState == GameState.beginGamePlay) {
             GetTrack(BASE).volume += Time.deltaTime*0.5f;
             GetTrack(KICK).volume += Time.deltaTime*0.5f;
-
+            cubeDrive = GetTrack(BASE).audSrc;
             // full bar call back and volume is full
             if (GetTrack(KICK).volume >= 1) {
                 GetTrack(KICK).volume = 1;
@@ -177,23 +190,17 @@ public class MusicTrackHandler : MonoBehaviour {
                 }
                 else
                 {
+                 //   RhythmRealm.PatternBehave.patternPlayState = RhythmRealm.PatternBehave.PatternPlayState.begin;
+                    beatManager.startTimer = true;
+                    RhythmRealm.PatternBehave.patternPlayState = RhythmRealm.PatternBehave.PatternPlayState.begin;
                     gameState = GameState.gamePlay;
-                    cubeDrive = GetTrack(BASE).audSrc;
+                 //   cubeDrive = GetTrack(BASE).audSrc;
                 }
             }
         }
         
         if (gameState == GameState.gamePlay) {
-            float min, max, avg;
-            float[] spec = AnalyzeSound.GetSpectrum(cubeDrive, 64, out min, out max, out avg);
-            Color[] clrs = new Color[64];
-            for (int i = 0; i < spec.Length; i++) {
-                clrs[i] = Color.black;
-                clrs[i][0] = spec[i];
-            }
-            texSpectrum.SetPixels(clrs);
-            texSpectrum.Apply(false);
-         //   beatManager.debugCube.transform.position = new Vector3(0, max, 0);            
+                     
         }
         if (gameState == GameState.gameEnd) {
             foreach (SoundTrack s in soundTrack)
@@ -231,6 +238,13 @@ public class MusicTrackHandler : MonoBehaviour {
         else return false;
     }
 
+    void OnGUI() {
+        if(gameState == GameState.main){
+            if (GUI.Button(new Rect(0,0,Screen.dpi,Screen.dpi),"Start")) {
+                gameState = GameState.transition;
+            }
+        }
+    }
 	// Update is called once per frame
 	void Update () {
         StateManager();

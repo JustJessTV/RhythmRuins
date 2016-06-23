@@ -7,6 +7,7 @@ namespace RhythmRealm{
         public bool setScreenPercent;
         public float xPercent, yPercent;
         public float zDist;
+        public string name;
         Camera cam;
 	    // Use this for initialization
 	    void Start () {
