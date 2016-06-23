@@ -11,6 +11,7 @@ public class PlatformerPhysics:ActorPhysics{
 
     public delegate void CallDeath();
     public event CallDeath OnDeath;
+
     bool lastFrameShot = false;
     public bool invuln = false;
     float hp = 1;
@@ -39,7 +40,7 @@ public class PlatformerPhysics:ActorPhysics{
 
         GameObject go = Instantiate( obj as GameObject,
             transform.position, Quaternion.LookRotation(dir,Vector3.forward))as GameObject;
-        go.transform.parent = transform;
+        //go.transform.parent = transform;
     }
     void OnTriggerEnter(Collider other) {
         int mask = (1<<LayerMask.NameToLayer("BadUnits")) | (1<<LayerMask.NameToLayer("BadDamage"));

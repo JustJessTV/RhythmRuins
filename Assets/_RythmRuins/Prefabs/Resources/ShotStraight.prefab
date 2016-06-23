@@ -12,6 +12,7 @@ GameObject:
   - 96: {fileID: 9633092}
   - 65: {fileID: 6581894}
   - 114: {fileID: 11456450}
+  - 114: {fileID: 11440234}
   m_Layer: 0
   m_Name: ShotStraight
   m_TagString: Untagged
@@ -102,8 +103,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13357ff7bd570184c86c8aacb44ba5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 100
-  deathTime: 0.3
+--- !u!114 &11440234
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 118906}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b9c943390bd97a4398fd33cf7b2ddc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &11456450
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -115,7 +125,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8484f42906074f6428989f5bf727a94b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layerMask: {}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
