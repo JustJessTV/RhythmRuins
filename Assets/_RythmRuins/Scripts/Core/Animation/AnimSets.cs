@@ -26,6 +26,10 @@ public class AnimSets{
     }
     public AnimSet ETTA_SWEEP;
     public AnimSet TRIQ_SWEEP;
+    public AnimSet ETTA_POKE;
+    public AnimSet TRIQ_POKE;
+    public AnimSet ETTA_BARE;
+    public AnimSet TRIQ_BARE;
     public AnimSets() {
         Build();
     }
