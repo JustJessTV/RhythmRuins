@@ -29,7 +29,17 @@ public class PlatformerController : PlatformerPhysics {
         player = ReInput.players.GetPlayer(0);
     }
     void Update() {
-
+        float camX = Camera.main.transform.position.x;
+        if (transform.position.x > camX + 10) {
+            Vector3 temp = transform.position;
+            temp.x = camX + 10;
+            transform.position = temp;
+        }
+        if (transform.position.x < camX - 10) {
+            Vector3 temp = transform.position;
+            temp.x = camX - 10;
+            transform.position = temp;
+        }
         if (swap) {
             swap = false;
             if (PlatformerController.main.character == CharType.Etta) {
