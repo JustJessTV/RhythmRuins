@@ -16,7 +16,7 @@ namespace RhythmRealm{
 	
 	    // Update is called once per frame
 	    void Update () {
-            if (setScreenPercent) {
+            if (setScreenPercent&&cam!=null) {
                 Vector3 screen = new Vector3(Screen.width*xPercent,Screen.height*yPercent,zDist);
                 Vector3 pos = cam.ScreenToWorldPoint(screen);
                 transform.position = pos;

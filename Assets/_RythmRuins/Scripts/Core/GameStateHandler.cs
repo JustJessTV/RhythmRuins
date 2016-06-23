@@ -50,7 +50,12 @@ public class GameStateHandler : MonoBehaviour {
 	void Start () {
 	
 	}
-	
+    void OnEnable() {
+        gameState = State.transitionToMain;
+    }
+    void OnDisable() {
+        gameState = State.transitionToMain;
+    }
 	// Update is called once per frame
 	void Update () {
         displayGameState = gameState.ToString();

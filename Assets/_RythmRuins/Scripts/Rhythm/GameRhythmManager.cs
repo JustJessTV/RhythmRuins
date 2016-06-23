@@ -33,6 +33,11 @@ namespace RhythmRealm
             PatternBehave.SpawnPath pathR1 = new PatternBehave.SpawnPath(spawnNodes[3], endNodes[3], 3);
    //         PatternBehave.SpawnPath pathR1 = new PatternBehave.SpawnPath(spawn_R1.transform.position, end_R1.transform.position, 4);
    //         PatternBehave.SpawnPath pathR2 = new PatternBehave.SpawnPath(spawn_R2.transform.position, end_R2.transform.position, 5);
+        
+        }
+        void OnDisable() {
+            endNodes =     new List<GameObject>();
+            spawnNodes =   new List<GameObject>();
         }
         void CreateSpawnNodes() {
 

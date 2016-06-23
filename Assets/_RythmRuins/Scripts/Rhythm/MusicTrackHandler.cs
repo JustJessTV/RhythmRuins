@@ -130,9 +130,6 @@ public class MusicTrackHandler : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
-        GameStateHandler.transitionToMain += TransitionToMain;
-        GameStateHandler.transitionToPlay += TransitionToPlay;
-        GameStateHandler.gameOver += GameEnd;
         texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
         Shader.SetGlobalTexture("_SPECTRUM", texSpectrum);
         beatManager = FindObjectOfType<RhythmRealm.BeatManager>().GetComponent<RhythmRealm.BeatManager>();
@@ -148,6 +145,19 @@ public class MusicTrackHandler : MonoBehaviour {
    //    };
    //    AdjustVolume(initTracks, 1.0f);
 	}
+    void OnEnable() {
+        GameStateHandler.transitionToMain += TransitionToMain;
+        GameStateHandler.transitionToPlay += TransitionToPlay;
+        GameStateHandler.gameOver += GameEnd;
+        gameState = GameState.transitionToMain;
+    }
+    void OnDisable() {
+
+        GameStateHandler.transitionToMain -= TransitionToMain;
+        GameStateHandler.transitionToPlay -= TransitionToPlay;
+        GameStateHandler.gameOver -= GameEnd;
+        gameState = GameState.transitionToMain;
+    }
     public static void TransitionToMain() {
         gameState = GameState.transitionToMain;
     }

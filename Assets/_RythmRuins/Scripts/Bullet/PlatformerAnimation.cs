@@ -28,15 +28,24 @@ public class PlatformerAnimation : MonoBehaviour {
         pc.onStopJump       += StopJump;
         pc.onStartAttack    += StartAttack;
         pc.onStartHurt      += StartHurt;
-
-        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
-
 	}
+    void Start() {
+        BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
+        pc.OnDeath += Death;
+    }
+    void Death() {
+        if (pc.character == CharType.Triq) {
+            sr.sprite = sprites[22];
+        }
+        else {
+            sr.sprite = sprites[17];
+        }
+        pc.invuln = true;
+        anCurrent = null;
+    }
     public void UpdateSpriteSet() {
         switch (pc.character) {
             case CharType.Etta:
-                BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
-            /*
                 switch (pc.weapon) {
                     case WeaponType.Bare:
                         BuildSpriteLib(Root.main.animSets.ETTA_BARE);
@@ -47,11 +56,10 @@ public class PlatformerAnimation : MonoBehaviour {
                     case WeaponType.Sweep:
                         BuildSpriteLib(Root.main.animSets.ETTA_SWEEP);
                         break;
-                }*/
+                }
                 break;
             case CharType.Triq:
                 BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
-            /*
                 switch (pc.weapon) {
                     case WeaponType.Bare:
                         BuildSpriteLib(Root.main.animSets.TRIQ_BARE);
@@ -62,7 +70,7 @@ public class PlatformerAnimation : MonoBehaviour {
                     case WeaponType.Sweep:
                         BuildSpriteLib(Root.main.animSets.TRIQ_SWEEP);
                         break;
-                }*/
+                }
                 break;
         }
     }
@@ -87,7 +95,9 @@ public class PlatformerAnimation : MonoBehaviour {
     }
 	// Update is called once per frame
 	void Update () {
-        anCurrent.Update();
+        if (anCurrent != null) {
+            anCurrent.Update();
+        }
 	}
     void SwapDirection(bool flipX) {
         sr.flipX = flipX;

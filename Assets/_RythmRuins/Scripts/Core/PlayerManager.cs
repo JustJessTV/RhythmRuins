@@ -21,12 +21,12 @@ public class PlayerManager {
         GameObject.Instantiate(Resources.Load("SwapPrompt"));
     }
     public void SetWeapon(WeaponType weapon) {
-        if (storeWeapon != WeaponType.Bare) return;
+        if (storeWeapon == WeaponType.Bare) return;
         if (onSwitchWeapon != null) onSwitchWeapon(weapon);
     }
     WeaponType storeWeapon;
-    private float _energy;
-    private float energyCost = 0.1f;
+    private float _energy=1;
+    public float energyCost = 0.1f;
     public float energy {
         get { return _energy; }
         set {
@@ -40,6 +40,7 @@ public class PlayerManager {
             }
 
             _energy = Mathf.Clamp01(value);
+            Debug.Log(_energy);
         }
     }
     public bool enoughEnergy {
