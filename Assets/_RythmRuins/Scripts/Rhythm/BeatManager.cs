@@ -13,6 +13,11 @@ namespace RhythmRealm
         private static decimal fullNote;
         private static decimal quaterNote;
         private static decimal halfNote;
+        public static float getHalfNote {
+            get {
+                return (float)halfNote;
+            }
+        }
 
         public static float getFullNote {
             get {
@@ -86,6 +91,15 @@ namespace RhythmRealm
             set
             {
                 _inputAndValue = value;
+            }
+        }
+        static List<InputAndValue> _expectedInputs;
+        public static List<InputAndValue> expectedInputs {
+            get {
+                return _expectedInputs ?? (_expectedInputs = new List<InputAndValue>());
+            }
+            set {
+                _expectedInputs = value;
             }
         }
         // public Dictionary<int, float> inputAndValue = new Dictionary<int, float>();

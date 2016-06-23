@@ -55,9 +55,10 @@ namespace RhythmRealm
         }
         public static PatternPlayState patternPlayState;
         public List<GameObject> spawnPoints;
-
+        
         BeatManager beatManager;
         int playDetectIndexer;
+        int playExpiredIndexer;
         int spawnIndexer;
         // Use this for initialization
         void Start()
@@ -68,7 +69,8 @@ namespace RhythmRealm
             }
             beatManager = GetComponent<BeatManager>();
         //    if (delayFactor == 0) delayFactor = 3;
-            delayFactor = 5;
+            delayFactor = BeatManager.getFullNote*5;
+            Debug.Log(delayFactor + " factor");
         }
 
         // Update is called once per frame
@@ -102,6 +104,7 @@ namespace RhythmRealm
             // call start all music
             beginPlayTime = Time.time;
             playDetectIndexer = 0;
+            playExpiredIndexer = 0;
             spawnIndexer = 0;
             patternPlayState = PatternPlayState.play;
             Debug.Log(beatManager.inputAndValue.Count);
@@ -109,10 +112,19 @@ namespace RhythmRealm
         void PatternDetector(float delay)
         {
 
-            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playDetectIndexer].time)
+            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playDetectIndexer].time - BeatManager.getFullNote)
             {
                 Debug.Log("expect button " + beatManager.inputAndValue[playDetectIndexer].index);
+                BeatManager.expectedInputs.Add(beatManager.inputAndValue[playDetectIndexer]);
+                Debug.Log("expecting " + BeatManager.expectedInputs.Count);
                 playDetectIndexer++;
+            }
+   //         Debug.Log("time elapse ");
+            if ((Time.time - beginPlayTime) > delay + beatManager.inputAndValue[playExpiredIndexer].time + BeatManager.getFullNote)
+            {
+                Debug.Log("expired button " + beatManager.inputAndValue[playExpiredIndexer].index);
+                BeatManager.expectedInputs.Remove(beatManager.inputAndValue[playExpiredIndexer]);
+                playExpiredIndexer++;
             }
         }
         void PatternSpawner()
