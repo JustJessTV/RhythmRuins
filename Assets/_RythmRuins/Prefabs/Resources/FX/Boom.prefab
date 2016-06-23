@@ -41,6 +41,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c0e729865dad224cb437658af7ea80b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sheetName: effectSprites
+  fps: 12
 --- !u!212 &21295842
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class TrackPlayer : MonoBehaviour {
-
+public class Mover : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 	
@@ -10,6 +9,6 @@ public class TrackPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.root.position = PlatformerController.main.transform.position;
+        transform.position += transform.right * Time.deltaTime * 10;
 	}
 }

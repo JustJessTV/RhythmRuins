@@ -122,7 +122,6 @@ MonoBehaviour:
   spawnPoint: {fileID: 0}
   endPoint: {fileID: 0}
   camPoint: {x: 0, y: 0, z: 0}
-  delay: 5
   fullNote: 0
   testKill: 0
 --- !u!198 &19803036
