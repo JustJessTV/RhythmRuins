@@ -19,12 +19,13 @@ public class MusicTrackHandler : MonoBehaviour {
     RhythmRealm.BeatManager beatManager;
     AudioSource cubeDrive;
     public enum GameState { 
-        idle,
+        transitionToMain,
         main,
         transition,
         beginGamePlay,
         gamePlay,
-        gameEnd
+        gameEnd,
+        gameOver
     }
 
     public static GameState gameState;
@@ -128,6 +129,8 @@ public class MusicTrackHandler : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        GameStateHandler.transitionToMain += TransitionToMain;
+        GameStateHandler.transitionToPlay += TransitionToPlay;
         texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
         Shader.SetGlobalTexture("_SPECTRUM", texSpectrum);
         beatManager = FindObjectOfType<RhythmRealm.BeatManager>().GetComponent<RhythmRealm.BeatManager>();
@@ -143,7 +146,12 @@ public class MusicTrackHandler : MonoBehaviour {
    //    };
    //    AdjustVolume(initTracks, 1.0f);
 	}
-
+    public static void TransitionToMain() {
+        gameState = GameState.transitionToMain;
+    }
+    public static void TransitionToPlay() {
+        gameState = GameState.transition;
+    }
     void StateManager() {
         if (cubeDrive != null) {
             if (deCubeOriginalPos == Vector3.zero) {
@@ -162,7 +170,7 @@ public class MusicTrackHandler : MonoBehaviour {
             
             beatManager.debugCube.transform.position = new Vector3(0, max, 0) + deCubeOriginalPos;  
         }
-        if (gameState == GameState.idle) {
+        if (gameState == GameState.transitionToMain) {
             SoundTrack st = GetTrack(MAIN);
             st.audSrc.volume = 0.5f;
             st.audSrc.pitch = 0.5f;
@@ -208,6 +216,7 @@ public class MusicTrackHandler : MonoBehaviour {
                     beatManager.startTimer = true;
                     RhythmRealm.PatternBehave.patternPlayState = RhythmRealm.PatternBehave.PatternPlayState.begin;
                     gameState = GameState.gamePlay;
+                    GameStateHandler.TransitionToPlayComplete();
                  //   cubeDrive = GetTrack(BASE).audSrc;
                 }
             }
@@ -224,7 +233,8 @@ public class MusicTrackHandler : MonoBehaviour {
                     s.volume = 0;
                 }
             }
-            gameState = GameState.idle;
+            gameState = GameState.gameOver;
+        //    gameState = GameState.transitionToMain;
         }
     }
     void AdjustVolume(string[] names, float volume){
@@ -259,7 +269,8 @@ public class MusicTrackHandler : MonoBehaviour {
     void OnGUI() {
         if(gameState == GameState.main){
             if (GUI.Button(new Rect(0,0,Screen.dpi,Screen.dpi),"Start")) {
-                gameState = GameState.transition;
+            //    gameState = GameState.transition;
+                GameStateHandler.BeginGame();
             }
         }
     }

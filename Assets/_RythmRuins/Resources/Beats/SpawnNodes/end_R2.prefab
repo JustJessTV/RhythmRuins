@@ -108,7 +108,7 @@ MonoBehaviour:
   setScreenPercent: 1
   xPercent: 0.6
   yPercent: 0.2
-  zDist: 20
+  zDist: 15
   name: end_R2
 --- !u!135 &13560282
 SphereCollider:
