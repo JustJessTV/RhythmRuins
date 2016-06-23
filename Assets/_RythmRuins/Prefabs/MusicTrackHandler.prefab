@@ -50,7 +50,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   debugFunctions: 0
   debug02: 0
-  gameState: 0
   setLow: 0
   setNorm: 0
 --- !u!1001 &100100000
