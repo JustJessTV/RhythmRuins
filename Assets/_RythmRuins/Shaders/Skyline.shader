@@ -59,13 +59,14 @@
 			{
 				// sample the texture
 				fixed4 col = tex2D(_MainTex, i.uv);
-				float zPoint = saturate((i.worldPos.z-1)*0.05);
+				float zPoint = 1-saturate((i.worldPos.z-1)*0.05);
 				if(col.a<0.5) discard;
-				//return fixed4(1,1,1,1)*(pow(tex2D(_SPECTRUM,i.uv).r,0.5));
+				float pulse = (pow(tex2D(_SPECTRUM,float2(zPoint*0.5,0)).r,0.3))-0.3;
+				//return fixed4(1,1,1,1)*pulse;
 				float3 cloud = float3(
-				tex2D(_Clouds, float2(_Time.x+i.uv.x,_Time.x+i.uv.y)).x,
-				tex2D(_Clouds, float2(-_Time.x+i.uv.x,_Time.x+i.uv.y)).x,
-				tex2D(_Clouds, float2(i.uv.x,-_Time.x+i.uv.y)).x);
+				tex2D(_Clouds, float2(_Time.x+i.worldPos.x,_Time.x+i.worldPos.y)*0.1).x,
+				tex2D(_Clouds, float2(-_Time.x+i.worldPos.x,_Time.x+i.worldPos.y)*0.02).x,
+				tex2D(_Clouds, float2(i.worldPos.x,-_Time.x+i.worldPos.y)*0.05).x);
 				float sample = 0.002;
 				float sampleD = sample*0.7;
 				float blendAmount = 
@@ -81,7 +82,7 @@
 				cloud = 1-(abs(cloud*2-1));
 				cloud = pow(cloud,3);
 				float finalCloud = (cloud.x+cloud.y+cloud.z)/3;
-				float3 lightColor = tex2D(_Gradient,saturate(finalCloud+_Umph));
+				float3 lightColor = tex2D(_Gradient,saturate(finalCloud+pulse));
 				return (1-blendAmount)*tex2D(_GradientDepth,zPoint)+lightColor.xyzz*blendAmount*1.5;
 			}
 			ENDCG

@@ -19,9 +19,9 @@ public class BGSpawner : DispatchEvent {
         SpawnBuilding(point, 0);
     }
     void SpawnBuilding(Vector3 point,float offset){
-        if (Random.value < 0.8f) return;
+        if (Random.value < 0.7f) return;
         int index = Random.Range(0, buildings.Length);
-        float dist = Random.Range(12f, 50);
+        float dist = Random.Range(12f, 80);
         float slide = Random.Range(10, 20);
         GameObject go = GameObject.Instantiate(buildings[index], 
             CamController.GetPointAtDistRight(dist) + Vector3.right * (slide+offset) + Vector3.forward * 2 + Vector3.up*(8-point.y), 
