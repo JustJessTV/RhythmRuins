@@ -15,7 +15,7 @@ namespace RhythmRealm
         private static decimal halfNote;
         public static float getHalfNote {
             get {
-                return (float)halfNote;
+                return (float)fullNote*0.5f;
             }
         }
 
@@ -80,6 +80,7 @@ namespace RhythmRealm
                 this.index = index;
                 this.time = time;
             }
+            public bool hit;
         }
         List<InputAndValue> _inputAndValue;
         public List<InputAndValue> inputAndValue

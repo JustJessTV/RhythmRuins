@@ -11,7 +11,7 @@ GameObject:
   - 198: {fileID: 19831696}
   - 199: {fileID: 19964872}
   m_Layer: 5
-  m_Name: psHalo
+  m_Name: psMiss
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,7 +75,7 @@ ParticleSystem:
     minMaxState: 0
   speed: 1
   randomSeed: 0
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   moveWithTransform: 1
@@ -395,7 +395,7 @@ ParticleSystem:
     serializedVersion: 2
     enabled: 1
     type: 11
-    radius: 0.5
+    radius: 0.25
     angle: 25
     length: 5
     boxX: 1
