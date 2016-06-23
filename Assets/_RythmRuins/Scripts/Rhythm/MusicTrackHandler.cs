@@ -121,6 +121,7 @@ public class MusicTrackHandler : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
+        Shader.SetGlobalTexture("_SPECTRUM", texSpectrum);
         beatManager = GetComponent<RhythmRealm.BeatManager>();
         
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Tracks") as AudioClip[];
