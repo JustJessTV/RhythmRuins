@@ -49,7 +49,7 @@ public class CamController : MonoBehaviour {
     }
     void SpawnRandom() {
         if (Random.value > 0.9) {
-            //Instantiate(Resources.Load("Baddies/Turret"), GetPointAtDistRight(10)+Vector3.right*2, Quaternion.identity);
+            Instantiate(Resources.Load("Baddies/Turret"), GetPointAtDistRight(10)+Vector3.right*2, Quaternion.identity);
             /*
             Vector3 position = transform.position;
             position.x += Random.Range(-7, 7);
