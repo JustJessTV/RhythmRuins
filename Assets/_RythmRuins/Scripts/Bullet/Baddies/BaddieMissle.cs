@@ -26,7 +26,7 @@ public class BaddieMissle : Damagie{
         
     }
     public override void Kill(){
-        Debug.Log("Hit this also");
+        Instantiate(Resources.Load("FX/Boom"), transform.position, Quaternion.identity);
         base.Kill();
     }
 }

@@ -47,11 +47,13 @@ public class BaddieTurret : Damagie {
         if (shot != null) {
             Destroy(shot);
         }
+        Vector3 point = transform.position;
         GameObject go = Instantiate(Resources.Load("DamageZoneCircle"))as GameObject;
-        go.transform.position = transform.position;
+        go.transform.position = point;
         go.transform.localScale = new Vector3(8, 0.1f, 8);
         DamageArea da = go.GetComponent<DamageArea>();
         da.Arm(0.5f);
+        da.onComplete = () => { GameObject boom = Instantiate(Resources.Load("FX/Boom"), point, Quaternion.identity) as GameObject; boom.transform.localScale = Vector3.one * 3; };
         base.Kill();
     }
 }
