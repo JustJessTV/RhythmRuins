@@ -6,6 +6,7 @@ using UnityEngine.Audio;
 public class MusicTrackHandler : MonoBehaviour {
     public bool debugFunctions;
     public bool debug02;
+    public Vector3 deCubeOriginalPos = Vector3.zero;
     private static Texture2D _texSpectrum;
     public static Texture2D texSpectrum {
         get {
@@ -35,8 +36,15 @@ public class MusicTrackHandler : MonoBehaviour {
     string KICK     = "SynthEttriq_KICK";
     string KODACHI  = "SynthEttriq_MelodyKodachi";
     string SPEAR    = "SynthEttriq_MelodySpear";
-    public bool setLow;
-    public bool setNorm;
+    public static bool setLow;
+    public static bool setNorm;
+    public static float lowPassFilterDelay;
+
+    public delegate void SetLowComplete();
+    public static event SetLowComplete setLowComplete;
+    public delegate void SetNormComplete();
+    public static event SetNormComplete setNormComplete;
+
     AudioLowPassFilter lowPassFilter;
     AudioReverbFilter reverbFilter;
     IList<SoundTrack> soundTrack = new List<SoundTrack>();
@@ -138,6 +146,9 @@ public class MusicTrackHandler : MonoBehaviour {
 
     void StateManager() {
         if (cubeDrive != null) {
+            if (deCubeOriginalPos == Vector3.zero) {
+                deCubeOriginalPos = beatManager.debugCube.transform.position;
+            }
             float min, max, avg;
             float[] spec = AnalyzeSound.GetSpectrum(cubeDrive, 64, out min, out max, out avg);
             Color[] clrs = new Color[64];
@@ -148,7 +159,8 @@ public class MusicTrackHandler : MonoBehaviour {
             }
             texSpectrum.SetPixels(clrs);
             texSpectrum.Apply(false);
-            beatManager.debugCube.transform.position = new Vector3(0, max, 0);  
+            
+            beatManager.debugCube.transform.position = new Vector3(0, max, 0) + deCubeOriginalPos;  
         }
         if (gameState == GameState.idle) {
             SoundTrack st = GetTrack(MAIN);
@@ -165,7 +177,8 @@ public class MusicTrackHandler : MonoBehaviour {
             SoundTrack st = GetTrack(MAIN);
             st.audSrc.volume -= Time.deltaTime*0.1f;
             st.audSrc.pitch += Time.deltaTime*0.1f;
-            setLow = true;
+       //     setLow = true;
+            SetLowPassFilter(true, 2);
             if (st.audSrc.pitch >= 1) {
                 st.audSrc.volume =0;
                 st.audSrc.pitch = 1;
@@ -183,7 +196,8 @@ public class MusicTrackHandler : MonoBehaviour {
             // full bar call back and volume is full
             if (GetTrack(KICK).volume >= 1) {
                 GetTrack(KICK).volume = 1;
-                setNorm = true;
+            //    setNorm = true;
+                SetLowPassFilter(false, 2);
                 if (GetTrack(TRIQ).volume < 1)
                 {
                     GetTrack(TRIQ).volume += Time.deltaTime;
@@ -237,7 +251,11 @@ public class MusicTrackHandler : MonoBehaviour {
         if (t >= 1) return true;
         else return false;
     }
-
+    void SetLowPassFilter(bool set, float delay) {
+        if (set) setLow = true;
+        else setNorm = true;
+        lowPassFilterDelay = delay;
+    }
     void OnGUI() {
         if(gameState == GameState.main){
             if (GUI.Button(new Rect(0,0,Screen.dpi,Screen.dpi),"Start")) {
@@ -250,13 +268,22 @@ public class MusicTrackHandler : MonoBehaviour {
         StateManager();
         if (setLow)
         {
-            if (LowPass(true, 2)) {
+            if (LowPass(true, lowPassFilterDelay)) {
+                if (setLowComplete != null)
+                {
+                    setLowComplete();
+                }
                 setLow = false;
             }
         }
         if (setNorm) {
-            if (LowPass(false,2)) {
-                setNorm = false;
+            if (LowPass(false,lowPassFilterDelay)) {
+                if (setNormComplete != null)
+                {
+                    setNormComplete();
+                }
+                    setNorm = false;
+                
             }
         }
         if (debugFunctions) {

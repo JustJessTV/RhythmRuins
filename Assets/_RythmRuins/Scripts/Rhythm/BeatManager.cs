@@ -94,9 +94,14 @@ namespace RhythmRealm
         void Start()
         {
             hitFullNote += FullNoteDebug;
-            debugCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            debugCube = GameObject.CreatePrimitive(PrimitiveType.Quad);
             debugCube.layer = 5;
             Destroy(debugCube.GetComponent<BoxCollider>());
+            NodePosition nPos = debugCube.AddComponent<NodePosition>();
+            nPos.xPercent = 0.5f;
+            nPos.yPercent = 0.05f;
+            nPos.zDist = 10;
+            nPos.setScreenPercent = true;
             if (BPM == 0) BPM = 140;
             CalculateBeat(BPM, out fullNote, out quaterNote);
         }
