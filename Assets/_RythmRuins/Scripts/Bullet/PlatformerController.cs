@@ -6,7 +6,6 @@ public class PlatformerController : PlatformerPhysics {
     public static PlatformerController main;
     public PlatformerAnimation pm;
     Sprite[] sprites;
-    SpriteRenderer sr;
     AnimNode anRun;
     AnimNode anIdle;
     AnimNode anCurrent;
@@ -21,6 +20,8 @@ public class PlatformerController : PlatformerPhysics {
         player = ReInput.players.GetPlayer(0);
         Root.playerManger.onSwitchPlayer += SwapCharacters;
         Root.playerManger.onSwitchWeapon += SetWeapon;
+        GameStateHandler.beginPlay += SpawnPlayer;
+        pm.sr.enabled = false;
     }
     public void SetWeapon(WeaponType weapon) {
         this.weapon = weapon;
@@ -30,6 +31,15 @@ public class PlatformerController : PlatformerPhysics {
         this.character = character;
         pm.UpdateSpriteSet();
         player = ReInput.players.GetPlayer((int)character);
+    }
+    void SpawnPlayer() {
+        Vector3 temp = transform.position;
+        temp.x = Camera.main.transform.position.x;
+        temp.y = 11;
+        transform.position = temp;
+        pm.sr.enabled = true;
+        Jump();
+        JumpRelease();
     }
     void Update() {
         float camX = Camera.main.transform.position.x;
@@ -68,6 +78,10 @@ public class PlatformerController : PlatformerPhysics {
         Shoot(look, transform);
         if (player.GetButtonDown("Swap")) {
             swap = true;
+        }
+        if (player.GetButtonDown("Pause")) {
+            if (GameStateHandler.gameState == GameStateHandler.State.main)
+                GameStateHandler.BeginGame();
         }
         Debug.DrawRay(transform.position, look);
         base.Update();
