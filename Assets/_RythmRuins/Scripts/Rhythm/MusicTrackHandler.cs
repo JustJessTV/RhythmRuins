@@ -6,8 +6,19 @@ using UnityEngine.Audio;
 public class MusicTrackHandler : MonoBehaviour {
     public bool debugFunctions;
     public bool debug02;
+    private static Texture2D _texSpectrum;
+    public static Texture2D texSpectrum {
+        get {
+            return _texSpectrum ?? (_texSpectrum = new Texture2D(64, 1));
+        }
+        set {
+            _texSpectrum = value;
+        }
+    }
+    RhythmRealm.BeatManager beatManager;
+    AudioSource cubeDrive;
     public enum GameState { 
-        
+        idle,
         main,
         transition,
         beginGamePlay,
@@ -73,7 +84,14 @@ public class MusicTrackHandler : MonoBehaviour {
     void PlayAll(bool set, float volume) {
         foreach (SoundTrack st in soundTrack) {
             st.audSrc.volume = volume;
-            st.audSrc.Play();
+            if (set)
+            {
+                st.audSrc.Play();
+            }
+            else {
+                st.audSrc.Stop();
+            }
+            
         }
     }
     SoundTrack GetTrack(string name) {
@@ -102,10 +120,15 @@ public class MusicTrackHandler : MonoBehaviour {
     }
 	// Use this for initialization
 	void Start () {
+        texSpectrum = new Texture2D(64, 1, TextureFormat.RGBA32, false);
+        beatManager = GetComponent<RhythmRealm.BeatManager>();
+        
         AudioClip[] clips = Resources.LoadAll<AudioClip>("Tracks") as AudioClip[];
+        
         Debug.Log(clips.Length);
         LoadAllSoundTrack(clips);
         PlayAll(true,0);
+        AudioSource cubeDrive = soundTrack[0].audSrc;
    //    string[] initTracks = new string[]{
    //        "BASE","KICK"
    //    };
@@ -113,11 +136,14 @@ public class MusicTrackHandler : MonoBehaviour {
 	}
 
     void StateManager() {
-        if (gameState == GameState.main) {
+
+        if (gameState == GameState.idle) {
             SoundTrack st = GetTrack(MAIN);
-            
             st.audSrc.volume = 0.5f;
             st.audSrc.pitch = 0.5f;
+            gameState = GameState.main;
+        }
+        if (gameState == GameState.main) {
             
         }
         if (gameState == GameState.transition) {
@@ -129,12 +155,16 @@ public class MusicTrackHandler : MonoBehaviour {
             if (st.audSrc.pitch >= 1) {
                 st.audSrc.volume =0;
                 st.audSrc.pitch = 1;
+                PlayAll(false);
+                PlayAll(true, 0);
                 gameState = GameState.beginGamePlay;
             }
         }
+
+        
         if (gameState == GameState.beginGamePlay) {
-            GetTrack(BASE).volume += Time.deltaTime * 0.1f;
-            GetTrack(KICK).volume += Time.deltaTime*0.1f;
+            GetTrack(BASE).volume += Time.deltaTime*0.5f;
+            GetTrack(KICK).volume += Time.deltaTime*0.5f;
 
             // full bar call back and volume is full
             if (GetTrack(KICK).volume >= 1) {
@@ -147,12 +177,22 @@ public class MusicTrackHandler : MonoBehaviour {
                 else
                 {
                     gameState = GameState.gamePlay;
+                    cubeDrive = GetTrack(BASE).audSrc;
                 }
             }
         }
+        
         if (gameState == GameState.gamePlay) {
-            
-            
+            float min, max, avg;
+            float[] spec = AnalyzeSound.GetSpectrum(cubeDrive, 64, out min, out max, out avg);
+            Color[] clrs = new Color[64];
+            for (int i = 0; i < spec.Length; i++) {
+                clrs[i] = Color.black;
+                clrs[i][0] = spec[i];
+            }
+            texSpectrum.SetPixels(clrs);
+            texSpectrum.Apply(false);
+         //   beatManager.debugCube.transform.position = new Vector3(0, max, 0);            
         }
         if (gameState == GameState.gameEnd) {
             foreach (SoundTrack s in soundTrack)
@@ -162,7 +202,7 @@ public class MusicTrackHandler : MonoBehaviour {
                     s.volume = 0;
                 }
             }
-            gameState = GameState.main;
+            gameState = GameState.idle;
         }
     }
     void AdjustVolume(string[] names, float volume){

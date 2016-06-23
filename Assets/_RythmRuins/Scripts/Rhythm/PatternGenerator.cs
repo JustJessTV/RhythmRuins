@@ -9,6 +9,8 @@ namespace RhythmRealm
         BPMCalculator bpmCalculator;
         BeatManager beatManager;
 
+        public static string fileName;
+        public static string textField;
         public AudioSource audSrc;
         public AudioClip audClip;
         public static int bpm;
@@ -30,8 +32,10 @@ namespace RhythmRealm
             bpmCalculator = GetComponent<BPMCalculator>();
             if (audSrc == null) {
                 audSrc = new GameObject("audSrc").AddComponent<AudioSource>();
+                audSrc.loop = true;
             }
             audSrc.clip = audClip;
+            textField = "";
         }
 
         // Update is called once per frame
@@ -86,25 +90,32 @@ namespace RhythmRealm
                         beatManager.ClearRecordedKeys();
                         Debug.Log(beatManager.inputAndValue.Count);
                         beatManager.LoadRecordedKeys();
+                        beatManager.setBPM = true;
+                        beatManager.startTimer = true;
                         audSrc.Stop();
-                        audSrc.Play();
+                        
                         debugPlayBackTime = Time.time;
                         debugPlayBackIndexer = 0;
                         debugPlayBack = true;
                         Debug.Log(beatManager.inputAndValue.Count);
+                        float t1 = (float)BeatManager.sessionTimer;
+                        float t2 = debugPlayBackTime;
+                        Debug.Log("session timer == "+t1 +" : " +t2);
+                        audSrc.Play();
                     }
                     if (debugPlayBack) {
                         int amount = keys.Count;
                         float spacing = (float)8 / (float)amount;
                         if (debugPlayBackIndexer < beatManager.inputAndValue.Count)
                         {
-                            if (Time.time - debugPlayBackTime > beatManager.inputAndValue[debugPlayBackIndexer].time)
+                            float t = Time.time - debugPlayBackTime;
+                            if (t >= beatManager.inputAndValue[debugPlayBackIndexer].time)
                             {
 
                                 GameObject test = GameObject.CreatePrimitive(PrimitiveType.Cube);
                                 float x = -3 + (spacing * beatManager.inputAndValue[debugPlayBackIndexer].index);
                                 test.transform.position = new Vector3(x, 3, 0);
-                                Destroy(test, 0.1f);
+                                Destroy(test, 0.2f);
                                 debugPlayBackIndexer++;
                             }
                         }
@@ -122,12 +133,16 @@ namespace RhythmRealm
                     }
                 }
                 else {
-                    GUILayout.BeginHorizontal();
+                   
                     GUILayout.Box("audio : " + audClip.name);
-                    
+                    GUILayout.BeginHorizontal();
+                    textField = GUILayout.TextField(textField);
+                    if (GUILayout.Button("submit")) {
+                        fileName = textField;
+                    }
+                    GUILayout.EndHorizontal();
                     // allow toggle for loop?
 
-                    GUILayout.EndHorizontal();
                     if (GUILayout.Button("refresh")) {
                         audSrc.clip = audClip;
                     }

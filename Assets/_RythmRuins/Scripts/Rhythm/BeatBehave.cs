@@ -27,6 +27,7 @@ public class BeatBehave : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         camPoint = RhythmRealm.GameRhythmManager.rhythmCamPos;
+        Debug.Log(camPoint);
         particles = GetComponentInChildren<ParticleSystem>();
         travelDir = (endPoint - spawnPoint).normalized;
         startTime = Time.time;
@@ -51,7 +52,7 @@ public class BeatBehave : MonoBehaviour {
         }
         if (state == States.fade){
         //    this.transform.position += travelDir * Time.deltaTime;
-            this.transform.position = Vector3.Slerp(this.transform.position, camPoint, Time.deltaTime*0.2f);
+            this.transform.position = Vector3.Lerp(this.transform.position, camPoint, Time.deltaTime*0.2f);
             mat.color = Color.Lerp(mat.color, Color.clear, Time.deltaTime);
         }
         if (testKill) {
