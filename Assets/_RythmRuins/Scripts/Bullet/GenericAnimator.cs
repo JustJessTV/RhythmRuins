@@ -4,6 +4,7 @@ using System.Collections;
 public class GenericAnimator : MonoBehaviour {
     public string sheetName;
     public float fps;
+    public bool loop;
     AnimNode anSet;
     Sprite[] sprites;
     SpriteRenderer sr;
@@ -11,7 +12,10 @@ public class GenericAnimator : MonoBehaviour {
     void Awake() {
         sr = GetComponent<SpriteRenderer>();
         sprites = Resources.LoadAll<Sprite>(sheetName);
-        anSet = new AnimNode(ref sr, sprites, 0, sprites.Length-1,fps , AnimNodeType.Single);
+        if (loop)
+            anSet = new AnimNode(ref sr, sprites, 0, sprites.Length - 1, fps, AnimNodeType.Loop);
+        else
+            anSet = new AnimNode(ref sr, sprites, 0, sprites.Length - 1, fps, AnimNodeType.Single);
         anSet.Play();
         anSet.OnComplete = Kill;
     }

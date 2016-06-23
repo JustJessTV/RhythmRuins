@@ -61,7 +61,7 @@
 				fixed4 col = tex2D(_MainTex, i.uv);
 				float zPoint = 1-saturate((i.worldPos.z-1)*0.05);
 				if(col.a<0.5) discard;
-				float pulse = (pow(tex2D(_SPECTRUM,float2(zPoint*0.5,0)).r,0.3))-0.3;
+				float pulse = (pow(tex2D(_SPECTRUM,float2((1-zPoint)*0.5,0)).r,0.3))-0.3;
 				//return fixed4(1,1,1,1)*pulse;
 				float3 cloud = float3(
 				tex2D(_Clouds, float2(_Time.x+i.worldPos.x,_Time.x+i.worldPos.y)*0.1).x,

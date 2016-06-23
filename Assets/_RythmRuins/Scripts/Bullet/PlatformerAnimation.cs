@@ -4,7 +4,7 @@ using System.Collections;
 public class PlatformerAnimation : MonoBehaviour {
     PlatformerController pc;
     Sprite[] sprites;
-    SpriteRenderer sr;
+    public SpriteRenderer sr;
     AnimNode anRun;
     AnimNode anIdle;
     AnimNode anJump;

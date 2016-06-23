@@ -4,7 +4,7 @@ using System.Collections;
 public class CamController : MonoBehaviour {
     public static Vector3 LeftWall;
     public static Vector3 RightWall;
-    public float speed = 2;
+    public float speed = 0.5f;
     static Camera _cam;
     static Camera cam {
         get {
@@ -22,11 +22,18 @@ public class CamController : MonoBehaviour {
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(cam);
         LeftWall = Vector3.Cross(planes[0].normal, Vector3.up);
         RightWall = Vector3.Cross(planes[1].normal*-1, Vector3.up);
+        GameStateHandler.beginPlay += GameEnter;
+        GameStateHandler.gameOver+=GameEnd;
     }
 	void Start () {
 	
 	}
-	
+    void GameEnter() {
+        speed = 2;
+    }
+    void GameEnd() {
+        speed = 0.5f;
+    }
 	// Update is called once per frame
     void Update() {
         Debug.DrawRay(transform.position, LeftWall * 10);
@@ -59,6 +66,7 @@ public class CamController : MonoBehaviour {
         }
     }
     void SpawnRandom() {
+        if (GameStateHandler.gameState != GameStateHandler.State.gamePlaying) return;
         if (Random.value > 0.9) {
             Instantiate(Resources.Load("Baddies/Turret"), GetPointAtDistRight(10)+Vector3.right*2, Quaternion.identity);
             /*
