@@ -9,7 +9,7 @@ public class PatternPath : MonoBehaviour {
     private static string _directoryPath;
     public static string DIRECTORYPATH{
         get {
-            return _directoryPath ?? (_directoryPath = Application.dataPath + "/" +"PatternFiles/"); 
+            return _directoryPath ?? (_directoryPath = "C:/PatternFiles" ); //Application.dataPath + "/" +"PatternFiles/"); 
         }
         set {
             _directoryPath = value;

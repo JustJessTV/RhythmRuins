@@ -110,12 +110,13 @@ namespace RhythmRealm
         {
             hitFullNote += FullNoteDebug;
             debugCube = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            debugCube.transform.localScale = Vector3.one * 0.0001f;
             debugCube.layer = 5;
             Destroy(debugCube.GetComponent<BoxCollider>());
             NodePosition nPos = debugCube.AddComponent<NodePosition>();
             nPos.xPercent = 0.5f;
             nPos.yPercent = 0.05f;
-            nPos.zDist = 10;
+            nPos.zDist = 100000;
             nPos.setScreenPercent = true;
             if (BPM == 0) BPM = 140;
             CalculateBeat(BPM, out fullNote, out quaterNote);

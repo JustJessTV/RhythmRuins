@@ -111,12 +111,13 @@ namespace RhythmRealm
                 }
                 else
                 {
-                    patternPlayState = PatternPlayState.idle;
+                    fileIndexer++;
+                    BeginPlay();
+                    //patternPlayState = PatternPlayState.idle;
                 }
             }
             if (patternPlayState == PatternPlayState.idle) {
-                fileIndexer++;
-                BeginPlay();
+                
             }
         }
         void BeginPlay()

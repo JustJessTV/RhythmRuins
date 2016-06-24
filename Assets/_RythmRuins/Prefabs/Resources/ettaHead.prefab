@@ -11,7 +11,8 @@ GameObject:
   - 64: {fileID: 6420268}
   - 114: {fileID: 11457708}
   - 212: {fileID: 21221718}
-  m_Layer: 0
+  - 114: {fileID: 11415170}
+  m_Layer: 5
   m_Name: ettaHead
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 124034}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.7181952, y: -0.91878396, z: 11.119232}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.8, y: 1.8, z: 1.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
@@ -43,6 +44,22 @@ MeshCollider:
   serializedVersion: 2
   m_Convex: 0
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &11415170
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 124034}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83617976c8b820c42938d5852d88a496, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  setScreenPercent: 1
+  xPercent: 0.03
+  yPercent: 0.1
+  zDist: 18
+  name: 
 --- !u!114 &11457708
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -59,6 +76,8 @@ MonoBehaviour:
   loop: 0
   kill: 0
   testReset: 0
+  start: 0
+  end: 0
   parent: {fileID: 0}
 --- !u!212 &21221718
 SpriteRenderer:
