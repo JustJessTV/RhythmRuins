@@ -1,0 +1,133 @@
+fileFormatVersion: 2
+guid: 6b1e105361f60074a9bbb91eef422ff9
+timeCreated: 1466728774
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: enemy and effects_0
+    21300002: enemy and effects_1
+    21300004: enemy and effects_2
+    21300006: enemy and effects_3
+    21300008: enemy and effects_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 50
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: enemy and effects_0
+      rect:
+        serializedVersion: 2
+        x: 2662
+        y: 1932
+        width: 73
+        height: 70
+      alignment: 9
+      pivot: {x: 0.64881873, y: 0.45565882}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -9.190918, y: 12.070557}
+        - {x: -24.190918, y: 6.0705566}
+        - {x: -24.190918, y: -3.9294434}
+        - {x: -12.190918, y: -10.929443}
+        - {x: 7.809082, y: -10.929443}
+        - {x: 11.809082, y: -3.9294434}
+        - {x: 11.809082, y: 6.0705566}
+        - {x: 8.809082, y: 12.070557}
+    - name: enemy and effects_1
+      rect:
+        serializedVersion: 2
+        x: 2750
+        y: 1944
+        width: 76
+        height: 50
+      alignment: 9
+      pivot: {x: 0.8471455, y: 0.40688476}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: enemy and effects_2
+      rect:
+        serializedVersion: 2
+        x: 2852
+        y: 1943
+        width: 101
+        height: 51
+      alignment: 9
+      pivot: {x: 0.8534117, y: 0.469571}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: enemy and effects_3
+      rect:
+        serializedVersion: 2
+        x: 2970
+        y: 1943
+        width: 66
+        height: 45
+      alignment: 9
+      pivot: {x: 0.8527129, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+    - name: enemy and effects_4
+      rect:
+        serializedVersion: 2
+        x: 2646
+        y: 2014
+        width: 115
+        height: 72
+      alignment: 9
+      pivot: {x: 0.50000215, y: 0.43533665}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 29.622314, y: 11.407593}
+        - {x: -24.377686, y: 11.407593}
+        - {x: -24.377686, y: -10.592407}
+        - {x: -19.377686, y: -12.592407}
+        - {x: 15.622314, y: -12.592407}
+        - {x: 34.622314, y: -9.592407}
+        - {x: 35.622314, y: -8.592407}
+        - {x: 35.622314, y: 4.407593}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -83,5 +83,21 @@ public class CamController : MonoBehaviour {
             position.z = 0;
             Instantiate(Resources.Load("TankDamage"), position, Quaternion.identity);*/
         }
+        if (Random.value > 0.95) {
+            SpawnMissles(2);
+        }
+        if (Random.value > 0.995) {
+            SpawnMissles(20);
+        }
+    }
+    void SpawnMissles(int count) {
+        for (int x = 0; x < count; x++) {
+            Vector2 pos = Random.insideUnitCircle.normalized;
+            pos.y = Mathf.Abs(pos.y);
+            pos *= 15;
+            Vector3 pos3 = Camera.main.transform.position+new Vector3(pos.x,pos.y,0);
+            pos3.z=0;
+            Instantiate(Resources.Load("Baddies/Missle"), pos3, Quaternion.identity);
+        }
     }
 }
