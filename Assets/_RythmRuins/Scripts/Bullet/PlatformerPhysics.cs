@@ -86,6 +86,8 @@ public class PlatformerPhysics:ActorPhysics{
         GUI.Button(new Rect(10, 30, 200, 20), "");
         GUI.Button(new Rect(10, 15, reserveHP * 150, 10), "");
         GUI.Button(new Rect(10, 15, 150, 10), "");
+        GUI.Button(new Rect(w-400, 30, Root.playerManger.energy * 350, 30), "");
+        GUI.Button(new Rect(w-400, 30, 350, 30), "");
         //GUI.HorizontalScrollbar(new Rect(40, 5, w - 80,20), transform.position.x, 2, 0, 100);
 
     }

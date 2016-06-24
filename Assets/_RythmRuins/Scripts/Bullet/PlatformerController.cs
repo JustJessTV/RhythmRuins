@@ -72,8 +72,7 @@ public class PlatformerController : PlatformerPhysics {
             if (GameStateHandler.gameState == GameStateHandler.State.main)
                 GameStateHandler.BeginGame();
             if (GameStateHandler.gameState == GameStateHandler.State.gameOver) {
-                GameStateHandler.gameState = GameStateHandler.State.transitionToMain;
-                UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+                Application.Quit();
             }
         }
         if (GameStateHandler.gameState != GameStateHandler.State.gamePlaying) return;
@@ -114,9 +113,7 @@ public class PlatformerController : PlatformerPhysics {
         Shoot(look, transform);
         if (player.GetButtonDown("Swap")) {
             //Root.playerManger.SetWeapon(WeaponType.Poke);
-            UnityEngine.SceneManagement.SceneManager.UnloadScene(0);
-            UnityEngine.SceneManagement.SceneManager.LoadScene(0);
-            //swap = true;
+            swap = true;
         }
         Debug.DrawRay(transform.position, look);
         base.Update();

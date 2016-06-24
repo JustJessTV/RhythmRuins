@@ -7,6 +7,8 @@ public class BGSpawner : DispatchEvent {
     public override void Awake() {
         cc = Camera.main.GetComponent<CamController>();
         buildings = Resources.LoadAll<GameObject>("BG");
+    }
+    public override void Start() {
         SimulateSpawn(100);
     }
     public override void Update() {
