@@ -56,7 +56,7 @@ public class PlatformerPhysics:ActorPhysics{
         int mask = (1 << LayerMask.NameToLayer("BadUnits")) | (1 << LayerMask.NameToLayer("BadDamage"));
         int result = (1 << other.gameObject.layer) & (mask);
         if (result == 0) return;
-        Debug.Log("Hit " + other.transform.name);
+        //Debug.Log("Hit " + other.transform.name);
         BaddieMissle bm = other.GetComponent<BaddieMissle>();
         if (bm != null) {
             bm.Kill();

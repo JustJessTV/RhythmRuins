@@ -32,7 +32,7 @@ public class BeatControllInterface : MonoBehaviour {
     void Awake() {
     }
     void Start() {
-        player = ReInput.players.GetPlayer(0);
+        player = ReInput.players.GetPlayer(1);
         Root.playerManger.onSwitchPlayer += SwapPlayer;
     }
 	void Update () {
@@ -60,10 +60,12 @@ public class BeatControllInterface : MonoBehaviour {
         if (player.GetButtonDown("WeaponA") || Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (pressedWeaponA != null) pressedWeaponA();
+            Root.playerManger.SetWeapon(WeaponType.Poke);
         }
         if (player.GetButtonDown("WeaponB") || Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (pressedWeaponB != null) pressedWeaponB();
+            Root.playerManger.SetWeapon(WeaponType.Sweep);
         }
     }
 }

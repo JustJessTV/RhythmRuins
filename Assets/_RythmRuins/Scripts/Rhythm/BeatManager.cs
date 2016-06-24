@@ -181,6 +181,7 @@ namespace RhythmRealm
             Color c = new Color(Random.Range(0.2f, 1.0f),
                 Random.Range(0.2f, 1.0f),
                 Random.Range(0.2f, 1.0f));
+            if(debugCube!=null)
             debugCube.GetComponent<MeshRenderer>().material.color = c;
         }
 

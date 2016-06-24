@@ -84,6 +84,7 @@ public class AnimNode{
     }
     void Finalize() {
         state = AnimNodeState.Idle;
+        PlatformerController.main.invuln = false;
         if (OnComplete != null)
             OnComplete();
     }

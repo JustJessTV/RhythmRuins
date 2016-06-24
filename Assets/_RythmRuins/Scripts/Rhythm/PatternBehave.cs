@@ -62,9 +62,15 @@ namespace RhythmRealm
         int playDetectIndexer;
         int playExpiredIndexer;
         int spawnIndexer;
+        string[] fileNames;
+        int fileIndexer;
         // Use this for initialization
         void Start()
         {
+            fileNames = new string[]{
+                "pattern01","pattern02"
+            };
+            fileIndexer = 0;
             psHit = Resources.Load("Beats/psHit") as GameObject;
             psMiss = Resources.Load("Beats/psMiss") as GameObject;
             // debugging
@@ -108,17 +114,25 @@ namespace RhythmRealm
                     patternPlayState = PatternPlayState.idle;
                 }
             }
+            if (patternPlayState == PatternPlayState.idle) {
+                fileIndexer++;
+                BeginPlay();
+            }
         }
         void BeginPlay()
         {
-            beatManager.LoadRecordedKeys(fileToLoad);
+            if (fileIndexer > 1) {
+                fileIndexer = 0;
+            }
+            string fileName = fileNames[fileIndexer];
+            beatManager.LoadRecordedKeys(fileName);
             // call start all music
             beginPlayTime = Time.time;
             playDetectIndexer = 0;
             playExpiredIndexer = 0;
             spawnIndexer = 0;
             patternPlayState = PatternPlayState.play;
-            Debug.Log(beatManager.inputAndValue.Count);
+            Debug.Log(fileNames +" :: "+ beatManager.inputAndValue.Count);
         }
         void PatternDetector(float delay)
         {
@@ -160,6 +174,7 @@ namespace RhythmRealm
                     green.transform.position = pos;
                     Destroy(green, 1);
                     BeatManager.expectedInputs.RemoveAt(i);
+                    Root.playerManger.energy += 0.1f;
                     return abs;
                 }
             }
