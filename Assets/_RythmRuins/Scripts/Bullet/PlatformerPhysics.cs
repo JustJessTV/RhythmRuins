@@ -15,6 +15,7 @@ public class PlatformerPhysics:ActorPhysics{
     bool lastFrameShot = false;
     public bool invuln = false;
     public float hp = 1;
+    public bool dead = false;
     public float reserveHP = 1;
     public void Awake() {
         base.info = new ActorInfo() {
@@ -68,7 +69,8 @@ public class PlatformerPhysics:ActorPhysics{
         CheckDeath();
     }
     void CheckDeath() {
-        if(hp<=0){
+        if(hp<=0&&!dead){
+            dead = true;
             OnDeath();
         }
     }
@@ -82,10 +84,12 @@ public class PlatformerPhysics:ActorPhysics{
             GUI.Button(new Rect(80, 80, w-160, h-300), "You died\n Score: "+(PlatformerController.main.finalScore.ToString("0.0")));
             return;
         }
+        GUI.color = Color.red;
         GUI.Button(new Rect(10, 30, hp * 200, 20), "");
         GUI.Button(new Rect(10, 30, 200, 20), "");
         GUI.Button(new Rect(10, 15, reserveHP * 150, 10), "");
         GUI.Button(new Rect(10, 15, 150, 10), "");
+        GUI.color = Color.yellow;
         GUI.Button(new Rect(w-400, 30, Root.playerManger.energy * 350, 30), "");
         GUI.Button(new Rect(w-400, 30, 350, 30), "");
         //GUI.HorizontalScrollbar(new Rect(40, 5, w - 80,20), transform.position.x, 2, 0, 100);

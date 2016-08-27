@@ -289,7 +289,7 @@ public class MusicTrackHandler : MonoBehaviour {
     }
     void OnGUI() {
         if(gameState == GameState.main){
-            if (GUI.Button(new Rect(0,0,Screen.dpi,Screen.dpi),"Start")) {
+            if (GUI.Button(new Rect(Screen.width*0.5f-50,Screen.height*0.5f,100,20),"Press Start!")) {
             //    gameState = GameState.transition;
                 GameStateHandler.BeginGame();
             }

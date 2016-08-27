@@ -12,6 +12,9 @@ public class BaddieTurret : Damagie {
     AnimNode anBeam;
     Sprite[] sprites;
     public SpriteRenderer sr;
+    public SpriteRenderer turretBase;
+    float resetColorTime;
+    bool isColored;
     void Awake() {
         sprites = Resources.LoadAll<Sprite>("pod and beam");
         anBeam = new AnimNode(ref sr, sprites, 5, 19, 15, AnimNodeType.Single);
@@ -26,6 +29,10 @@ public class BaddieTurret : Damagie {
 	void Update () {
         if (!playAnim) GotoTarget(PlatformerController.main.transform);
         if (playAnim) anBeam.Update();
+        if (isColored && Time.time > resetColorTime) {
+            isColored = false;
+            turretBase.color = Color.white;
+        }
 	}
     void GotoTarget(Transform target) {
         Vector3 dir = target.position - pivot.transform.position;
@@ -58,6 +65,12 @@ public class BaddieTurret : Damagie {
     void Complete() {
         nextShot = Time.time + delayTime;
         charging = false;
+    }
+    public override void Hit(float amount) {
+        base.Hit(amount);
+        turretBase.color = Color.red;
+        resetColorTime = Time.time + 0.1f;
+        isColored = true;
     }
     public override void Kill() {
         if (shot != null) {

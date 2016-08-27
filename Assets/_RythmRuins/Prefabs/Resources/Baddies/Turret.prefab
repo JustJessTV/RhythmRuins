@@ -423,6 +423,7 @@ MonoBehaviour:
   nextShot: 0
   delayTime: 0.5
   sr: {fileID: 21218220}
+  turretBase: {fileID: 21239710}
 --- !u!114 &11469386
 MonoBehaviour:
   m_ObjectHideFlags: 1
