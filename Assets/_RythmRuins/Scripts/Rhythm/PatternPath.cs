@@ -3,13 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using SimpleJSON;
-
+    
 public class PatternPath : MonoBehaviour {
 
     private static string _directoryPath;
     public static string DIRECTORYPATH{
         get {
-            return _directoryPath ?? (_directoryPath = "C:/PatternFiles" ); //Application.dataPath + "/" +"PatternFiles/"); 
+            return _directoryPath ?? (_directoryPath = Application.streamingAssetsPath ); //Application.dataPath + "/" +"PatternFiles/"); 
         }
         set {
             _directoryPath = value;
@@ -42,6 +42,7 @@ public class PatternPath : MonoBehaviour {
         File.WriteAllText(DIRECTORYPATH + name + FILENAME, stringData);
     }
     public static string LoadPatternFile(string name) {
+        return File.ReadAllText(DIRECTORYPATH+"\\"+name);
         string result = "";
         foreach (string s in fileNames) {
             if (s.Contains(name) &&
